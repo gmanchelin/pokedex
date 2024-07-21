@@ -59,6 +59,7 @@ function App() {
             page * rowsPerPage
         );
         const pokemonList = res.data.results;
+        console.log(pokemonList);
 
         // Fetch detailed data for each Pokemon concurrently
         const pokemonPromises = pokemonList.map((pokemon: { name: any }) =>
