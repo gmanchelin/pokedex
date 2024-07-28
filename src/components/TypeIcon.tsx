@@ -30,13 +30,12 @@ function TypeIcon(props: TypeIconProps) {
           flex: 1, // Take up remaining space
           display: "flex",
           justifyContent: "center", // Center horizontally within this box
-          alignItems: "center", // Center vertically within this box
         }}
       >
         <Typography
-          fontWeight={"bold"}
-          textTransform={"uppercase"}
-          textAlign={"center"}
+          fontWeight="bold"
+          textTransform="uppercase"
+          textAlign="center"
         >
           {props.type}
         </Typography>
