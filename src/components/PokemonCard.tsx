@@ -32,7 +32,6 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           height: "100%",
           marginLeft: "32px",
           marginRight: "16px",
-          alignItems: "center",
           "&:hover": {
             cursor: "pointer",
             transform: "scale(1.1)",
@@ -43,8 +42,9 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
             },
           },
         }}
+        onClick={() => window.open(pokemon.sprites.other.home.front_default, "_blank")}
       >
-        <Box sx={{ position: "relative", width: 96, height: 96 }}>
+        <Box sx={{ width: 96, height: 96 }}  alignSelf= "center">
           <CardMedia
             component="img"
             sx={{
@@ -64,8 +64,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
               width: 96,
               height: 96,
               marginLeft: "10px",
-              //Propriété de transition lue dans le hover de la Card
-              transition: "transform 0.3s ease, filter 0.3s ease",
+              transition: "transform 0.3s ease, filter 0.3s ease", //Propriété de transition lue dans le hover de la Card
             }}
             image={pokemon.sprites.other.home.front_default}
           />
