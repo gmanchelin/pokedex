@@ -6,7 +6,7 @@ interface TypeIconProps {
   type: string;
 }
 function TypeIcon(props: TypeIconProps) {
-  const typeSvg = `src/assets/types_icons/${props.type}.svg`;
+  const typeSvg = `public/assets/types_icons/${props.type}.svg`;
   return (
     <Grid
       item
@@ -20,6 +20,7 @@ function TypeIcon(props: TypeIconProps) {
       }}
     >
       <Box
+        key={`type-${props.type}`}
         component={"img"}
         src={typeSvg}
         height={"80%"}
@@ -36,6 +37,7 @@ function TypeIcon(props: TypeIconProps) {
           fontWeight="bold"
           textTransform="uppercase"
           textAlign="center"
+          sx={{ color: "text.secondary" }}
         >
           {props.type}
         </Typography>
