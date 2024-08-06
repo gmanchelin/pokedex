@@ -4,53 +4,11 @@ import PokemonDetailsPage from "./pages/PokemonDetailsPage";
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useMemo, useState } from "react";
 import Header from "./components/Header";
+import { getDesignTokens } from "./theme";
 
 function App() {
   const [mode, setMode] = useState<"light" | "dark">("light");
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode,
-          ...(mode === "light"
-            ? {
-                // palette values for light mode
-                primary: {
-                  main: "#373737",
-                },
-                secondary: {
-                  main: "#c71717",
-                },
-                text: {
-                  primary: "#373737",
-                  secondary: "#e4e4e4",
-                },
-                background: {
-                  paper: "#e4e4e4",
-                  default: "#ffffff",
-                },
-              }
-            : {
-                // palette values for dark mode
-                primary: {
-                  main: "#e4e4e4",
-                },
-                secondary: {
-                  main: "#c71717",
-                },
-                text: {
-                  primary: "#e4e4e4",
-                  secondary: "#e4e4e4",
-                },
-                background: {
-                  paper: "#373737",
-                  default: "#242424",
-                },
-              }),
-        },
-      }),
-    [mode]
-  );
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
     <ThemeProvider theme={theme}>
