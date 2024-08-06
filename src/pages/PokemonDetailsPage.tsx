@@ -132,8 +132,8 @@ function PokemonDetailsPage() {
             <Box key={`ability-${ability.slot}`}>
               <Typography textTransform={"capitalize"}>
                 {ability.is_hidden
-                  ? "Hidden Ability : "
-                  : `Ability ${ability.slot} : `}
+                  ? "Hidden Ability - "
+                  : `Ability ${ability.slot} - `}
                 {CapitalizeAndRemoveHyphen(ability.ability.name)}
               </Typography>
             </Box>

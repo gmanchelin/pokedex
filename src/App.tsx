@@ -5,6 +5,8 @@ import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import { useMemo, useState } from "react";
 import Header from "./components/Header";
 import { getDesignTokens } from "./theme";
+import GuessItsType from "./pages/GuessItsTypePage";
+import WhosThatPokemonPage from "./pages/WhosThatPokemonPage";
 
 function App() {
   const [mode, setMode] = useState<"light" | "dark">("light");
@@ -18,6 +20,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="page/:id" element={<PokemonDetailsPage />} />
+          <Route path="guess-its-type" element={<GuessItsType />} />
+          <Route path="whos-that-pokemon" element={<WhosThatPokemonPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

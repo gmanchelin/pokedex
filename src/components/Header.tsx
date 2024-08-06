@@ -11,6 +11,7 @@ import {
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useNavigate } from "react-router-dom";
+import Drawer from "./Drawer";
 
 interface HeaderProps {
   mode: "light" | "dark";
@@ -22,6 +23,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
   return (
     <AppBar position="static" color={"secondary"}>
       <Toolbar>
+        <Drawer />
         <Grid
           sx={{
             display: "flex",
@@ -49,9 +51,9 @@ function Header({ mode, setMode, theme }: HeaderProps) {
           color="inherit"
         >
           {theme.palette.mode === "dark" ? (
-            <Brightness7Icon key="dark-icon" />
+            <Brightness7Icon />
           ) : (
-            <Brightness4Icon key="light-icon" />
+            <Brightness4Icon />
           )}
         </IconButton>
       </Toolbar>
