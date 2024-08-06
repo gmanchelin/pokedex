@@ -77,7 +77,7 @@ function PokemonDetailsPage() {
   }
   return (
     <Grid container spacing={2}>
-      <Box component={"div"}>
+      <Box>
         {pokemonBefore && (
           <PokemonArrowIcon
             pokemon={pokemonBefore}
@@ -94,11 +94,9 @@ function PokemonDetailsPage() {
         )}
       </Box>
       <Grid item xs={12} sm={6} md={4}>
-        <Box component="p">
-          <Typography textTransform={"capitalize"}>
-            #{pokemon?.id} - {pokemon?.species.name}
-          </Typography>
-        </Box>
+        <Typography textTransform={"capitalize"}>
+          #{pokemon?.id} - {pokemon?.species.name}
+        </Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
         <Box
@@ -128,10 +126,10 @@ function PokemonDetailsPage() {
         </FormControl>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
-        <Box component="p">
+        <Box>
           Abilities :
           {pokemon?.abilities.map((ability) => (
-            <Box key={`ability-${ability.slot}`} component="p">
+            <Box key={`ability-${ability.slot}`}>
               <Typography textTransform={"capitalize"}>
                 {ability.is_hidden
                   ? "Hidden Ability : "
