@@ -14,7 +14,7 @@ import { Pokemon } from "../models/Pokemon";
 import PokemonArrowIcon from "../components/PokemonArrowIcon";
 import {
   FIRST_POKEMON_ID,
-  FirstLetterUpperCase,
+  CapitalizeAndRemoveHyphen,
   LAST_POKEMON_ID,
 } from "../models/SharedValues";
 
@@ -136,7 +136,7 @@ function PokemonDetailsPage() {
                 {ability.is_hidden
                   ? "Hidden Ability : "
                   : `Ability ${ability.slot} : `}
-                {FirstLetterUpperCase(ability.ability.name)}
+                {CapitalizeAndRemoveHyphen(ability.ability.name)}
               </Typography>
             </Box>
           ))}

@@ -2,6 +2,7 @@ import { Grid, TablePagination } from "@mui/material";
 import { useState, useEffect } from "react";
 import PokemonCard from "../components/PokemonCard";
 import { Pokemon } from "../models/Pokemon";
+import { LAST_POKEMON_ID } from "../models/SharedValues";
 
 function Homepage() {
   const [pokemonArray, setPokemonArray] = useState<Pokemon[]>([]);
@@ -56,7 +57,7 @@ function Homepage() {
       </Grid>
       <TablePagination
         component="div"
-        count={1025}
+        count={LAST_POKEMON_ID}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
