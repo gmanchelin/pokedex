@@ -30,17 +30,14 @@ function Homepage() {
         const data = await res.json();
         const pokemonList = data.results;
 
-        // Fetch detailed data for each Pokemon concurrently
         const pokemonPromises = pokemonList.map((pokemon: { name: unknown }) =>
           fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`).then(
             (res) => res.json()
           )
         );
 
-        // Wait for all promises to resolve
         const pokemonData = await Promise.all(pokemonPromises);
 
-        // Update the state once with all Pokemon data
         setPokemonArray(pokemonData);
       } catch (error) {
         console.error("Error fetching Pokémon data:", error);
