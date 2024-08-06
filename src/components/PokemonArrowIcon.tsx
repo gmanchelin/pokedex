@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Pokemon } from "../models/Pokemon";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -24,14 +24,19 @@ function PokemonArrowIcon({
           navigate(`/page/${pokemon.id}`);
         }}
       >
-        {isBefore ? <ArrowBackIcon /> : <ArrowForwardIcon />}#{pokemon.id} -{" "}
-        {pokemon.species.name}
+        {isBefore && <ArrowBackIcon />}
+        <Typography sx={{ color: "text.primary" }} textTransform={"capitalize"}>
+          #{pokemon.id}
+          {" - "}
+          {pokemon.species.name}
+        </Typography>
         <Box
           component="img"
-          id="pokemon-image"
+          key={`pokemon-image-${pokemon.id}`}
           src={pokemon.sprites.other.home.front_default}
           sx={{ width: "40px", height: "40px" }}
         />
+        {!isBefore && <ArrowForwardIcon />}
       </Button>
     )
   );

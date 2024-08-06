@@ -66,7 +66,12 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
         </Box>
 
         <CardContent sx={{ flex: "1 0 auto" }}>
-          <Typography component="div" variant="h4" textTransform={"capitalize"}>
+          <Typography
+            component="div"
+            variant="h4"
+            textTransform={"capitalize"}
+            sx={{ color: "text.primary" }}
+          >
             {pokemon.species.name}
           </Typography>
 
