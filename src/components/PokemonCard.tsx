@@ -8,23 +8,16 @@ import {
 } from "@mui/material";
 import TypeIcon from "./TypeIcon";
 import { Pokemon } from "../models/Pokemon";
+import { useNavigate } from "react-router-dom";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
 }
 
 function PokemonCard({ pokemon }: PokemonCardProps) {
+  const navigate = useNavigate();
   return (
-    <Grid
-      container
-      xs={12}
-      sm={6}
-      md={4}
-      mb={2}
-      lg={3}
-      xl={3}
-      mt={3}
-    >
+    <Grid item xs={12} sm={6} md={4} mb={2} lg={3} xl={3} mt={3}>
       <Card
         sx={{
           flex: "1 1 0",
@@ -38,13 +31,15 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
             transition: "transform 0.3s ease, filter 0.3s ease",
             "& .hover-effect": {
               transform: "scale(1)",
-              filter: "blur(12px)",
+              filter: "blur(4px)",
             },
           },
         }}
-        onClick={() => window.open(pokemon.sprites.other.home.front_default, "_blank")}
+        onClick={() => {
+          navigate(`/page/${pokemon.id}`);
+        }}
       >
-        <Box sx={{ width: 96, height: 96 }}  alignSelf= "center">
+        <Box sx={{ width: 96, height: 96 }} alignSelf="center">
           <CardMedia
             component="img"
             sx={{
@@ -70,12 +65,12 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           />
         </Box>
 
-        <CardContent sx={{ flex: "1 0 auto" }} >
+        <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography component="div" variant="h4" textTransform={"capitalize"}>
             {pokemon.species.name}
           </Typography>
 
-          <Grid container spacing={1} direction="column" >
+          <Grid container spacing={1} direction="column">
             <Grid item>
               <TypeIcon type={pokemon.types[0].type.name} />
             </Grid>
