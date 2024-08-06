@@ -1,32 +1,27 @@
 import {
   Box,
-  Button,
   FormControl,
   FormControlLabel,
   Grid,
   Radio,
   RadioGroup,
+  Typography,
 } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PokemonDetails } from "../models/PokemonDetails";
 import { useEffect, useState } from "react";
 import { Pokemon } from "../models/Pokemon";
 import PokemonArrowIcon from "../components/PokemonArrowIcon";
-import { FIRST_POKEMON_ID, LAST_POKEMON_ID } from "../models/SharedValues";
+import {
+  FIRST_POKEMON_ID,
+  FirstLetterUpperCase,
+  LAST_POKEMON_ID,
+} from "../models/SharedValues";
 
-function FirstLetterUpperCase(str: string) {
-  const words = str.split("-");
-  return words
-    .map((word) => {
-      return word[0].toUpperCase() + word.substring(1);
-    })
-    .join(" ");
-}
 function PokemonDetailsPage() {
   const [pokemon, setPokemon] = useState<PokemonDetails>();
   const [pokemonBefore, setPokemonBefore] = useState<Pokemon>();
   const [pokemonAfter, setPokemonAfter] = useState<Pokemon>();
-  const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const [artworkToDisplay, setArtworkToDisplay] = useState("default");
 
@@ -74,83 +69,80 @@ function PokemonDetailsPage() {
       await getPokemonAfter();
     }
     fetchData();
-  }, [id]);
+  });
 
   function handleArtworkToDisplay(event: React.ChangeEvent<HTMLInputElement>) {
     const artworkToDisplay = event.target.value;
     setArtworkToDisplay(artworkToDisplay);
   }
   return (
-    <>
-      <Grid container spacing={2}>
-        <Box component={"div"}>
-          <Button onClick={() => navigate("/")}>Return</Button>
-          {pokemonBefore && (
-            <PokemonArrowIcon
-              pokemon={pokemonBefore}
-              isBefore={true}
-              isDisplayed={pokemon!.id > FIRST_POKEMON_ID}
-            />
-          )}
-          {pokemonAfter && (
-            <PokemonArrowIcon
-              pokemon={pokemonAfter}
-              isBefore={false}
-              isDisplayed={pokemon!.id < LAST_POKEMON_ID}
-            />
-          )}
-        </Box>
-        <Grid item xs={12} sm={6} md={4} key={"image"}>
-          <Box component="p">
-            #{pokemon?.id} - {pokemon?.species.name.toUpperCase()}
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} key={"image"}>
-          <Box
-            component="img"
-            id="pokemon-details-image"
-            src={
-              artworkToDisplay === "default"
-                ? pokemon?.sprites.other.home.front_default
-                : pokemon?.sprites.other.home.front_shiny
-            }
+    <Grid container spacing={2}>
+      <Box component={"div"}>
+        {pokemonBefore && (
+          <PokemonArrowIcon
+            pokemon={pokemonBefore}
+            isBefore={true}
+            isDisplayed={pokemon!.id > FIRST_POKEMON_ID}
           />
-          <FormControl>
-            <RadioGroup
-              row
-              aria-labelledby="demo-radio-buttons-group-label"
-              defaultValue="default"
-              name="radio-buttons-group"
-              onChange={handleArtworkToDisplay}
-            >
-              <FormControlLabel
-                value="default"
-                control={<Radio />}
-                label="Normal"
-              />
-              <FormControlLabel
-                value="shiny"
-                control={<Radio />}
-                label="Shiny"
-              />
-            </RadioGroup>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sm={6} md={4} key={"ability1"}>
-          <Box component="p">
-            Abilities :
-            {pokemon?.abilities.map((ability) => (
-              <Box component="p">
+        )}
+        {pokemonAfter && (
+          <PokemonArrowIcon
+            pokemon={pokemonAfter}
+            isBefore={false}
+            isDisplayed={pokemon!.id < LAST_POKEMON_ID}
+          />
+        )}
+      </Box>
+      <Grid item xs={12} sm={6} md={4}>
+        <Box component="p">
+          <Typography textTransform={"capitalize"}>
+            #{pokemon?.id} - {pokemon?.species.name}
+          </Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Box
+          component="img"
+          key={`pokemon-details-image-${pokemon?.id}`}
+          src={
+            artworkToDisplay === "default"
+              ? pokemon?.sprites.other.home.front_default
+              : pokemon?.sprites.other.home.front_shiny
+          }
+        />
+        <FormControl>
+          <RadioGroup
+            row
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="default"
+            name="radio-buttons-group"
+            onChange={handleArtworkToDisplay}
+          >
+            <FormControlLabel
+              value="default"
+              control={<Radio />}
+              label="Normal"
+            />
+            <FormControlLabel value="shiny" control={<Radio />} label="Shiny" />
+          </RadioGroup>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6} md={4}>
+        <Box component="p">
+          Abilities :
+          {pokemon?.abilities.map((ability) => (
+            <Box key={`ability-${ability.slot}`} component="p">
+              <Typography textTransform={"capitalize"}>
                 {ability.is_hidden
                   ? "Hidden Ability : "
                   : `Ability ${ability.slot} : `}
                 {FirstLetterUpperCase(ability.ability.name)}
-              </Box>
-            ))}
-          </Box>
-        </Grid>
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Grid>
-    </>
+    </Grid>
   );
 }
 
