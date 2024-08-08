@@ -17,4 +17,5 @@ export const TypesColor: { [key: string]: string } = {
   rock: "#afa981",
   steel: "#60a1b8",
   water: "#2980ef",
+  selected: "#656565",
 };
