@@ -1,48 +1,60 @@
-import { Grid, Typography } from "@mui/material";
+import { ButtonBase, Grid, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
-import { TypesColor } from "../types-color";
+import { TypesColor } from "../models/TypesColor";
 
 interface TypeIconProps {
   type: string;
+  onClick?: () => void;
+  isSelected?: boolean;
 }
+
+// TODO : Gérer le border radius sur le ripple effect + désactiver l'effet sur les cards
 function TypeIcon(props: TypeIconProps) {
   const typeSvg = `public/assets/types_icons/${props.type}.svg`;
   return (
-    <Grid
-      item
-      display={"flex"}
-      sx={{
-        borderRadius: "15px",
-        backgroundColor: TypesColor[props.type],
-        height: "30px",
-        width: "150px",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        key={`type-${props.type}`}
-        component={"img"}
-        src={typeSvg}
-        height={"80%"}
-        marginLeft={"5px"}
-      ></Box>
-      <Box
+    <ButtonBase onClick={props.onClick}>
+      <Grid
+        item
+        display={"flex"}
         sx={{
-          flex: 1, // Take up remaining space
-          display: "flex",
-          justifyContent: "center", // Center horizontally within this box
+          borderRadius: "15px",
+          backgroundColor: props.isSelected
+            ? TypesColor["selected"]
+            : TypesColor[props.type],
+          height: "30px",
+          width: "150px",
+          alignItems: "center",
+          "&:hover": {
+            cursor: "pointer",
+          },
+          border: props.isSelected ? "4px solid #ffffff" : null,
         }}
       >
-        <Typography
-          fontWeight="bold"
-          textTransform="uppercase"
-          textAlign="center"
-          sx={{ color: "text.secondary" }}
+        <Box
+          key={`type-${props.type}`}
+          component={"img"}
+          src={typeSvg}
+          height={"80%"}
+          marginLeft={"5px"}
+        ></Box>
+        <Box
+          sx={{
+            flex: 1, // Take up remaining space
+            display: "flex",
+            justifyContent: "center", // Center horizontally within this box
+          }}
         >
-          {props.type}
-        </Typography>
-      </Box>
-    </Grid>
+          <Typography
+            fontWeight="bold"
+            textTransform="uppercase"
+            textAlign="center"
+            sx={{ color: "text.secondary" }}
+          >
+            {props.type}
+          </Typography>
+        </Box>
+      </Grid>
+    </ButtonBase>
   );
 }
 
