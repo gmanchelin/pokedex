@@ -12,65 +12,30 @@ import { PokemonDetails } from "../models/PokemonDetails";
 import { useEffect, useState } from "react";
 import { Pokemon } from "../models/Pokemon";
 import PokemonArrowIcon from "../components/PokemonArrowIcon";
+import { FIRST_POKEMON_ID, LAST_POKEMON_ID } from "../models/SharedValues";
 import {
-  FIRST_POKEMON_ID,
   CapitalizeAndRemoveHyphen,
-  LAST_POKEMON_ID,
-} from "../models/SharedValues";
+  getPokemon,
+  getPokemonDetails,
+} from "../models/SharedFunctions";
 
 function PokemonDetailsPage() {
+  const { id } = useParams<{ id: string }>();
   const [pokemon, setPokemon] = useState<PokemonDetails>();
   const [pokemonBefore, setPokemonBefore] = useState<Pokemon>();
   const [pokemonAfter, setPokemonAfter] = useState<Pokemon>();
-  const { id } = useParams<{ id: string }>();
   const [artworkToDisplay, setArtworkToDisplay] = useState("default");
-
-  async function getPokemon() {
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
-      const data = await res.json();
-      setPokemon(data);
-    } catch (error) {
-      console.error("Error fetching Pokemon data:", error);
-    }
-    return pokemon;
-  }
-
-  async function getPokemonBefore() {
-    if (parseInt(id!) > 1) {
-      try {
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${parseInt(id!) - 1}`
-        );
-        const data = await res.json();
-        setPokemonBefore(data);
-      } catch (error) {
-        console.error("Error fetching Pokemon data:", error);
-      }
-    }
-  }
-
-  async function getPokemonAfter() {
-    try {
-      const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon/${parseInt(id!) + 1}`
-      );
-      const data = await res.json();
-      setPokemonAfter(data);
-    } catch (error) {
-      console.error("Error fetching Pokemon data:", error);
-    }
-  }
 
   useEffect(() => {
     async function fetchData() {
-      await getPokemon();
-      await getPokemonBefore();
-      await getPokemonAfter();
+      setPokemon(await getPokemonDetails(parseInt(id!)));
+      setPokemonBefore(await getPokemon(parseInt(id!) - 1));
+      setPokemonAfter(await getPokemon(parseInt(id!) + 1));
     }
     fetchData();
   });
 
+  // TODO : Fonction qui gère les shiny, à exporter sur l'application entière
   function handleArtworkToDisplay(event: React.ChangeEvent<HTMLInputElement>) {
     const artworkToDisplay = event.target.value;
     setArtworkToDisplay(artworkToDisplay);
