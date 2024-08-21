@@ -11,7 +11,7 @@ function GuessItsTypePage() {
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [numberOfTries, setNumberOfTries] = useState<number>(0);
   const [numberOfGoodAnswers, setNumberOfGoodAnswers] = useState<number>(0);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  // const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const types = [
     "normal",
@@ -60,7 +60,7 @@ function GuessItsTypePage() {
         } ${pokemonTypes.join(", ").toUpperCase()}`
       );
     }
-    setOpenSnackbar(true);
+    // setOpenSnackbar(true);
     setSelectedTypes([]);
     setId(randomNumber());
     setNumberOfTries(numberOfTries + 1);

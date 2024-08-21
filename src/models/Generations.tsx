@@ -4,7 +4,7 @@ export interface Generation {
     end: number;
 }
 
-const generations: Generation[] = [
+export const generations: Generation[] = [
     { name: "Kanto", start: 1, end: 151 },
     { name: "Johto", start: 152, end: 251 },
     { name: "Hoenn", start: 252, end: 386 },
