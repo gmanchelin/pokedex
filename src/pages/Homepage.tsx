@@ -69,11 +69,6 @@ function Homepage() {
           value={selectedGeneration}
           label="Options"
           onChange={handleChangeGeneration}
-          sx={{
-            ".MuiSvgIcon-root": {
-              color: "white", // Arrow color
-            },
-          }}
         >
           <MenuItem value="Kanto" defaultChecked>
             Kanto
