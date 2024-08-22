@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import { useState, useEffect, SetStateAction } from "react";
 import PokemonCard from "../components/PokemonCard";
 import { Pokemon } from "../models/Pokemon";
@@ -20,7 +14,8 @@ function Homepage() {
     setSelectedGeneration(event.target.value);
   };
 
-  useEffect(() => {Homepage
+  useEffect(() => {
+    Homepage;
     const getPokemon = async () => {
       try {
         const genToFetch = generations.find(
@@ -60,7 +55,10 @@ function Homepage() {
   return (
     <>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label" sx={{ color: "white" }}>
+        <InputLabel
+          id="demo-simple-select-label"
+          sx={{ color: (theme) => theme.palette.primary.main }}
+        >
           Options
         </InputLabel>
         <Select
