@@ -55,7 +55,7 @@ function Homepage() {
       <FormControl fullWidth>
         <InputLabel
           id="demo-simple-select-label"
-          sx={{ color: (theme) => theme.palette.primary.main }}
+          sx={{ color: (theme) => theme.palette.text.primary }}
         >
           Options
         </InputLabel>

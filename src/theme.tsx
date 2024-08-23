@@ -1,4 +1,3 @@
-// Theme.tsx
 import { PaletteMode } from "@mui/material";
 
 export const getDesignTokens = (mode: PaletteMode) => ({
@@ -6,30 +5,28 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     mode,
     ...(mode === "light"
       ? {
-          primary: {
-            main: "#373737",
-          },
           background: {
             paper: "#e4e4e4",
             default: "#ffffff",
           },
+          text: {
+            primary: "#373737",
+          },
         }
       : {
-          primary: {
-            main: "#e4e4e4",
-          },
           background: {
             paper: "#373737",
             default: "#242424",
+          },
+          text: {
+            primary: "#e4e4e4",
           },
         }),
     secondary: {
       main: "#c71717",
     },
-  },
-
-  text: {
-    primary: "primary.main",
-    secondary: "#ffffff",
+    text: {
+      secondary: "#ffffff",
+    },
   },
 });
