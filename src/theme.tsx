@@ -9,13 +9,6 @@ export const getDesignTokens = (mode: PaletteMode) => ({
           primary: {
             main: "#373737",
           },
-          secondary: {
-            main: "#c71717",
-          },
-          text: {
-            primary: "#373737",
-            secondary: "#ffffff",
-          },
           background: {
             paper: "#e4e4e4",
             default: "#ffffff",
@@ -25,17 +18,18 @@ export const getDesignTokens = (mode: PaletteMode) => ({
           primary: {
             main: "#e4e4e4",
           },
-          secondary: {
-            main: "#c71717",
-          },
-          text: {
-            primary: "#e4e4e4",
-            secondary: "#ffffff",
-          },
           background: {
             paper: "#373737",
             default: "#242424",
           },
         }),
+    secondary: {
+      main: "#c71717",
+    },
+  },
+
+  text: {
+    primary: "primary.main",
+    secondary: "#ffffff",
   },
 });

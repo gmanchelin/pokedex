@@ -8,10 +8,11 @@ import {
   Theme,
 } from "@mui/material";
 
-import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useNavigate } from "react-router-dom";
 import Drawer from "./Drawer";
+import { useShinyContext } from "../models/ShinyContext";
 
 interface HeaderProps {
   mode: "light" | "dark";
@@ -20,6 +21,8 @@ interface HeaderProps {
 }
 function Header({ mode, setMode, theme }: HeaderProps) {
   const navigate = useNavigate();
+  const isShiny = useShinyContext();
+
   return (
     <AppBar position="static" color={"secondary"}>
       <Toolbar>
@@ -50,11 +53,26 @@ function Header({ mode, setMode, theme }: HeaderProps) {
           onClick={() => setMode(mode === "light" ? "dark" : "light")}
           color="inherit"
         >
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          )}
+          <Brightness7Icon
+            sx={{
+              color:
+                theme.palette.mode === "dark"
+                  ? theme.palette.text.secondary
+                  : "black",
+            }}
+          />
+        </IconButton>
+        <IconButton
+          sx={{
+            ml: 1,
+          }}
+          onClick={() => isShiny.setShinyDisplayed(!isShiny.shinyDisplayed)}
+        >
+          <AutoAwesomeIcon
+            sx={{
+              color: isShiny?.shinyDisplayed ? "white" : "gray",
+            }}
+          />
         </IconButton>
       </Toolbar>
     </AppBar>

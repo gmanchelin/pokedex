@@ -27,8 +27,6 @@ function Homepage() {
         const { start, end } = genToFetch;
         const limit = end - start + 1;
         const offset = start - 1;
-        console.log(offset, limit);
-
         const res = await fetch(
           `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
         );
