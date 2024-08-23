@@ -28,5 +28,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     text: {
       secondary: "#ffffff",
     },
+    conditional: {
+      true: "#ffffff",
+      false: "#242424",
+    },
   },
 });
