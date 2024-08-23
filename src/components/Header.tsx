@@ -21,7 +21,7 @@ interface HeaderProps {
 }
 function Header({ mode, setMode, theme }: HeaderProps) {
   const navigate = useNavigate();
-  const isShiny = useShinyContext();
+  const shinyContext = useShinyContext();
 
   return (
     <AppBar position="static" color={"secondary"}>
@@ -56,9 +56,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
           <Brightness7Icon
             sx={{
               color:
-                theme.palette.mode === "dark"
-                  ? theme.palette.text.secondary
-                  : "black",
+                theme.palette.conditional[mode === "light" ? "true" : "false"],
             }}
           />
         </IconButton>
@@ -66,11 +64,16 @@ function Header({ mode, setMode, theme }: HeaderProps) {
           sx={{
             ml: 1,
           }}
-          onClick={() => isShiny.setShinyDisplayed(!isShiny.shinyDisplayed)}
+          onClick={() =>
+            shinyContext.setShinyDisplayed(!shinyContext.shinyDisplayed)
+          }
         >
           <AutoAwesomeIcon
             sx={{
-              color: isShiny?.shinyDisplayed ? "white" : "gray",
+              color:
+                theme.palette.conditional[
+                  shinyContext?.shinyDisplayed ? "true" : "false"
+                ],
             }}
           />
         </IconButton>

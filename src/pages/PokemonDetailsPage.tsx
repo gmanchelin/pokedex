@@ -1,13 +1,5 @@
-import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-  Typography,
-} from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Box, Grid, Typography } from "@mui/material";
+import { useLocation, useParams } from "react-router-dom";
 import { PokemonDetails } from "../models/PokemonDetails";
 import { useEffect, useState } from "react";
 import { Pokemon } from "../models/Pokemon";
@@ -18,28 +10,30 @@ import {
   getPokemon,
   getPokemonDetails,
 } from "../models/SharedFunctions";
+import Sprite from "../components/Sprite";
+
 
 function PokemonDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const [pokemon, setPokemon] = useState<PokemonDetails>();
+  const location = useLocation();
+  const { pokemon } = location.state || {};
+  const [pokemonSelected, setPokemonSelected] = useState<PokemonDetails>();
   const [pokemonBefore, setPokemonBefore] = useState<Pokemon>();
   const [pokemonAfter, setPokemonAfter] = useState<Pokemon>();
-  const [artworkToDisplay, setArtworkToDisplay] = useState("default");
+  const img = Sprite(pokemon!);
 
   useEffect(() => {
     async function fetchData() {
-      setPokemon(await getPokemonDetails(parseInt(id!)));
+      setPokemonSelected(await getPokemonDetails(parseInt(id!)));
       setPokemonBefore(await getPokemon(parseInt(id!) - 1));
       setPokemonAfter(await getPokemon(parseInt(id!) + 1));
     }
+
     fetchData();
   });
 
   // TODO : Fonction qui gère les shiny, à exporter sur l'application entière
-  function handleArtworkToDisplay(event: React.ChangeEvent<HTMLInputElement>) {
-    const artworkToDisplay = event.target.value;
-    setArtworkToDisplay(artworkToDisplay);
-  }
+
   return (
     <Grid container spacing={2}>
       <Box>
@@ -60,40 +54,20 @@ function PokemonDetailsPage() {
       </Box>
       <Grid item xs={12} sm={6} md={4}>
         <Typography textTransform={"capitalize"}>
-          #{pokemon?.id} - {pokemon?.species.name}
+          #{pokemonSelected?.id} - {pokemonSelected?.species.name}
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
         <Box
           component="img"
-          key={`pokemon-details-image-${pokemon?.id}`}
-          src={
-            artworkToDisplay === "default"
-              ? pokemon?.sprites.other.home.front_default
-              : pokemon?.sprites.other.home.front_shiny
-          }
+          key={`pokemon-details-image-${pokemonSelected?.id}`}
+          src={img}
         />
-        <FormControl>
-          <RadioGroup
-            row
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="default"
-            name="radio-buttons-group"
-            onChange={handleArtworkToDisplay}
-          >
-            <FormControlLabel
-              value="default"
-              control={<Radio />}
-              label="Normal"
-            />
-            <FormControlLabel value="shiny" control={<Radio />} label="Shiny" />
-          </RadioGroup>
-        </FormControl>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
         <Box>
           Abilities :
-          {pokemon?.abilities.map((ability) => (
+          {pokemonSelected?.abilities.map((ability) => (
             <Box key={`ability-${ability.slot}`}>
               <Typography textTransform={"capitalize"}>
                 {ability.is_hidden

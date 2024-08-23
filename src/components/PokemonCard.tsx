@@ -9,7 +9,7 @@ import {
 import TypeIcon from "./TypeIcon";
 import { Pokemon } from "../models/Pokemon";
 import { useNavigate } from "react-router-dom";
-import { useShinyContext } from "../models/ShinyContext";
+import Sprite from "./Sprite";
 
 interface PokemonCardProps {
   pokemon: Pokemon;
@@ -17,7 +17,7 @@ interface PokemonCardProps {
 
 function PokemonCard({ pokemon }: PokemonCardProps) {
   const navigate = useNavigate();
-  const isShiny = useShinyContext();
+  const img = Sprite(pokemon);
   return (
     <Grid item xs={12} sm={6} md={4} mb={2} lg={3} xl={3} mt={3}>
       <Card
@@ -38,7 +38,11 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           },
         }}
         onClick={() => {
-          navigate(`/page/${pokemon.id}`);
+          navigate(`/page/${pokemon.id}`, {
+            state: {
+              pokemon: pokemon,
+            },
+          });
         }}
       >
         <Box sx={{ width: 96, height: 96 }} alignSelf="center">
@@ -52,11 +56,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
               position: "absolute",
               zIndex: 1,
             }}
-            image={
-              isShiny.shinyDisplayed
-                ? pokemon.sprites.other.home.front_shiny
-                : pokemon.sprites.other.home.front_default
-            }
+            image={img}
           />
           <CardMedia
             component="img"
@@ -67,11 +67,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
               marginLeft: "10px",
               transition: "transform 0.3s ease, filter 0.3s ease", //Propriété de transition lue dans le hover de la Card
             }}
-            image={
-              isShiny.shinyDisplayed
-                ? pokemon.sprites.other.home.front_shiny
-                : pokemon.sprites.other.home.front_default
-            }
+            image={img}
           />
         </Box>
 
