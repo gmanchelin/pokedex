@@ -5,6 +5,7 @@ import {
   Dispatch,
   SetStateAction,
   useContext,
+  useEffect,
 } from "react";
 
 type ShinyContextType = {
@@ -19,7 +20,14 @@ interface ShinyProviderProps {
 }
 
 export const ShinyProvider = ({ children }: ShinyProviderProps) => {
-  const [shinyDisplayed, setShinyDisplayed] = useState<boolean>(false);
+  const [shinyDisplayed, setShinyDisplayed] = useState<boolean>(() => {
+    const storedValue = localStorage.getItem("shinyDisplayed");
+    return storedValue ? JSON.parse(storedValue) : false;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("shinyDisplayed", JSON.stringify(shinyDisplayed));
+  }, [shinyDisplayed]);
 
   return (
     <ShinyContext.Provider value={{ shinyDisplayed, setShinyDisplayed }}>
