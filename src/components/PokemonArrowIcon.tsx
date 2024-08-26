@@ -3,6 +3,7 @@ import { Pokemon } from "../models/Pokemon";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
+import Sprite from "./Sprite";
 
 interface PokemonArrowIconProps {
   pokemon: Pokemon;
@@ -16,12 +17,17 @@ function PokemonArrowIcon({
   isDisplayed,
 }: PokemonArrowIconProps) {
   const navigate = useNavigate();
+  const img = Sprite(pokemon);
 
   return (
     isDisplayed && (
       <Button
         onClick={() => {
-          navigate(`/page/${pokemon.id}`);
+          navigate(`/page/${pokemon.id}`, {
+            state: {
+              pokemon: pokemon,
+            },
+          });
         }}
       >
         {isBefore && <ArrowBackIcon />}
@@ -33,7 +39,7 @@ function PokemonArrowIcon({
         <Box
           component="img"
           key={`pokemon-image-${pokemon.id}`}
-          src={pokemon.sprites.other.home.front_default}
+          src={img}
           sx={{ width: "40px", height: "40px" }}
         />
         {!isBefore && <ArrowForwardIcon />}
