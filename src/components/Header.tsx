@@ -59,13 +59,12 @@ function Header({ mode, setMode, theme }: HeaderProps) {
           ) : (
             <WbSunnyIcon />
           )}
-          
         </IconButton>
         <IconButton
           sx={{
             ml: 1,
           }}
-          onClick={() =>
+          onClick={() => 
             shinyContext.setShinyDisplayed(!shinyContext.shinyDisplayed)
           }
         >
@@ -73,7 +72,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
             sx={{
               color:
                 theme.palette.conditional[
-                  shinyContext?.shinyDisplayed ? "true" : "false"
+                shinyContext?.shinyDisplayed ? "true" : "false"
                 ],
             }}
           />

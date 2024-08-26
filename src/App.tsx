@@ -2,15 +2,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import PokemonDetailsPage from "./pages/PokemonDetailsPage";
 import { Box, CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Header from "./components/Header";
 import { getDesignTokens } from "./theme";
 import GuessItsType from "./pages/GuessItsTypePage";
 import WhosThatPokemonPage from "./pages/WhosThatPokemonPage";
 
 function App() {
-  const [mode, setMode] = useState<"light" | "dark">("light");
+  const [mode, setMode] = useState<"light" | "dark">(localStorage.getItem("mode") === "light" ? "light" : "dark");
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+
+  useEffect(() => {
+    localStorage.setItem("mode", mode)
+  }, [mode])
 
   return (
     <ThemeProvider theme={theme}>
