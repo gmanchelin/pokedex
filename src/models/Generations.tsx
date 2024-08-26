@@ -12,6 +12,6 @@ export const generations: Generation[] = [
     { name: "Unova", start: 494, end: 649 },
     { name: "Kalos", start: 650, end: 721 },
     { name: "Alola", start: 722, end: 809 },
-    { name: "Galar", start: 810, end: 898 },
-    { name: "Paldea", start: 899, end: 1025 }
+    { name: "Galar", start: 810, end: 905 },
+    { name: "Paldea", start: 906, end: 1025 }
 ];
