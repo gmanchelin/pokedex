@@ -8,7 +8,8 @@ import {
   Theme,
 } from "@mui/material";
 
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useNavigate } from "react-router-dom";
 import Drawer from "./Drawer";
@@ -53,12 +54,12 @@ function Header({ mode, setMode, theme }: HeaderProps) {
           onClick={() => setMode(mode === "light" ? "dark" : "light")}
           color="inherit"
         >
-          <Brightness7Icon
-            sx={{
-              color:
-                theme.palette.conditional[mode === "light" ? "true" : "false"],
-            }}
-          />
+          {theme.palette.mode === "light" ? (
+            <DarkModeIcon />
+          ) : (
+            <WbSunnyIcon />
+          )}
+          
         </IconButton>
         <IconButton
           sx={{
