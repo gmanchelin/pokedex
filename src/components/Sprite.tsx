@@ -8,9 +8,10 @@ interface SpriteProps {
   pokemon: Pokemon;
   height?: number;
   width?: number;
+  isGray?: boolean;
 }
 
-const Sprite: React.FC<SpriteProps> = ({ pokemon, height, width }) => {
+const Sprite: React.FC<SpriteProps> = ({ pokemon, height, width, isGray }) => {
   const shinyContext = useShinyContext();
   const retroContext = useRetroContext();
 
@@ -38,6 +39,9 @@ const Sprite: React.FC<SpriteProps> = ({ pokemon, height, width }) => {
       alt={pokemon!.species.name}
       height={height}
       width={width}
+      sx={{
+        filter: isGray ? 'contrast(0)' : 'none',
+      }}
     />
   )
 };
