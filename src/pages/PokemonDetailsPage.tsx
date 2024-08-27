@@ -20,7 +20,6 @@ function PokemonDetailsPage() {
   const [pokemonSelected, setPokemonSelected] = useState<PokemonDetails>();
   const [pokemonBefore, setPokemonBefore] = useState<Pokemon>();
   const [pokemonAfter, setPokemonAfter] = useState<Pokemon>();
-  const img = Sprite(pokemon!);
 
   useEffect(() => {
     async function fetchData() {
@@ -31,8 +30,6 @@ function PokemonDetailsPage() {
 
     fetchData();
   });
-
-  // TODO : Fonction qui gère les shiny, à exporter sur l'application entière
 
   return (
     <Grid container spacing={2}>
@@ -58,11 +55,7 @@ function PokemonDetailsPage() {
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
-        <Box
-          component="img"
-          key={`pokemon-details-image-${pokemonSelected?.id}`}
-          src={img}
-        />
+        <Sprite pokemon={pokemon!} />
       </Grid>
       <Grid item xs={12} sm={6} md={4}>
         <Box>

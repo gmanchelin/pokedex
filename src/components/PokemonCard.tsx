@@ -1,7 +1,6 @@
 import {
   Grid,
   Card,
-  CardMedia,
   CardContent,
   Typography,
   Box,
@@ -17,7 +16,6 @@ interface PokemonCardProps {
 
 function PokemonCard({ pokemon }: PokemonCardProps) {
   const navigate = useNavigate();
-  const img = Sprite(pokemon);
   return (
     <Grid item xs={12} sm={6} md={4} mb={2} lg={3} xl={3} mt={3}>
       <Card
@@ -45,30 +43,8 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           });
         }}
       >
-        <Box sx={{ width: 96, height: 96 }} alignSelf="center">
-          <CardMedia
-            component="img"
-            sx={{
-              width: 96,
-              height: 96,
-              marginLeft: "10px",
-              //Propriétés pour positionner l'image par-dessus l'autre
-              position: "absolute",
-              zIndex: 1,
-            }}
-            image={img}
-          />
-          <CardMedia
-            component="img"
-            className="hover-effect"
-            sx={{
-              width: 96,
-              height: 96,
-              marginLeft: "10px",
-              transition: "transform 0.3s ease, filter 0.3s ease", //Propriété de transition lue dans le hover de la Card
-            }}
-            image={img}
-          />
+        <Box sx={{ width: 96, height: 96, marginLeft: "10px" }} alignSelf="center">
+          <Sprite pokemon={pokemon} height={96} width={96} />
         </Box>
 
         <CardContent sx={{ flex: "1 0 auto" }}>

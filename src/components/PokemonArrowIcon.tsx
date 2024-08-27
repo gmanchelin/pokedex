@@ -17,12 +17,9 @@ function PokemonArrowIcon({
   isDisplayed,
 }: PokemonArrowIconProps) {
   const navigate = useNavigate();
-  const img = Sprite(pokemon);
 
   return (
     isDisplayed && (
-
-
       <Button
         onClick={() => {
           navigate(`/page/${pokemon.id}`, {
@@ -32,12 +29,12 @@ function PokemonArrowIcon({
           });
         }}
       >
-        {isBefore && <><ArrowBackIcon sx={{ color: "text.primary" }} />
-          <Box
-            component="img"
-            key={`pokemon-image-${pokemon.id}`}
-            src={img}
-            sx={{ width: "40px", height: "40px" }} /></>}
+        {isBefore &&
+          <>
+            <ArrowBackIcon sx={{ color: "text.primary" }} />
+            <Sprite pokemon={pokemon} height={40} width={40} />
+          </>
+        }
         <Typography sx={{ color: "text.primary" }} textTransform={"capitalize"}>
           #{pokemon.id}
           {" - "}
@@ -45,12 +42,10 @@ function PokemonArrowIcon({
         </Typography>
         {!isBefore &&
           <>
-            <Box
-              component="img"
-              key={`pokemon-image-${pokemon.id}`}
-              src={img}
-              sx={{ width: "40px", height: "40px" }} /><ArrowForwardIcon sx={{ color: "text.primary" }} />
-          </>}
+            <Sprite pokemon={pokemon} height={40} width={40} />
+            <ArrowForwardIcon sx={{ color: "text.primary" }} />
+          </>
+        }
       </Button>
     )
   );

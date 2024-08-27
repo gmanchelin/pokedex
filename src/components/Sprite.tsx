@@ -1,27 +1,45 @@
+import React from "react";
 import { Pokemon } from "../models/Pokemon";
-import { PokemonDetails } from "../models/PokemonDetails";
 import { useRetroContext } from "../models/RetroContext";
 import { useShinyContext } from "../models/ShinyContext";
+import { Box } from "@mui/material";
 
-function Sprite(pokemon: Pokemon | PokemonDetails) {
+interface SpriteProps {
+  pokemon: Pokemon;
+  height?: number;
+  width?: number;
+}
+
+const Sprite: React.FC<SpriteProps> = ({ pokemon, height, width }) => {
   const shinyContext = useShinyContext();
   const retroContext = useRetroContext();
 
-  if (!retroContext.retroDisplayed && shinyContext.shinyDisplayed) {
-    return pokemon.sprites.other.home.front_shiny;
+  let imgSrc = "";
+
+  // Sprite home non shiny
+  if (!retroContext.retroDisplayed && !shinyContext.shinyDisplayed ) {
+    imgSrc = pokemon.sprites.other.home.front_default;
+    // Sprite home shiny
+  } else if (!retroContext.retroDisplayed && shinyContext.shinyDisplayed) {
+    imgSrc = pokemon.sprites.other.home.front_shiny;
+    // Sprite pixel non shiny
+  } else if (retroContext.retroDisplayed && !shinyContext.shinyDisplayed) {
+    imgSrc = pokemon.sprites.front_default;
+    // Sprite pixel shiny
+  } else if (retroContext.retroDisplayed && shinyContext.shinyDisplayed) {
+    imgSrc = pokemon.sprites.front_shiny;
   }
 
-  if (!retroContext.retroDisplayed && !shinyContext.shinyDisplayed) {
-    return pokemon.sprites.other.home.front_default;
-  }
-
-  if (retroContext.retroDisplayed && !shinyContext.shinyDisplayed) {
-    return pokemon.sprites.front_default;
-  }
-
-  if (retroContext.retroDisplayed && shinyContext.shinyDisplayed) {
-    return pokemon.sprites.front_shiny;
-  }
-}
+  return (
+    <Box
+      component="img"
+      src={imgSrc}
+      key={`pokemon-image-${pokemon!.id}`}
+      alt={pokemon!.species.name}
+      height={height}
+      width={width}
+    />
+  )
+};
 
 export default Sprite;

@@ -12,6 +12,7 @@ import {
   SnackbarCloseReason,
   Typography,
 } from "@mui/material";
+import Sprite from "../components/Sprite";
 
 function GuessItsTypePage() {
   const [id, setId] = useState<number>(randomNumber);
@@ -22,7 +23,7 @@ function GuessItsTypePage() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [displayedMessage, setDisplayedMessage] = useState<string>("");
   const [isGoodAnswer, setIsGoodAnswer] = useState<boolean>(false);
-
+  
   const types = [
     "normal",
     "grass",
@@ -123,21 +124,15 @@ function GuessItsTypePage() {
           </Box>
         </Grid>
 
-        {pokemon?.sprites.other.home.front_default && (
+        {pokemon?.sprites && (
           <Grid item>
-            <Box
-              component="img"
-              src={pokemon.sprites.other.home.front_default}
-              alt={pokemon.species.name}
-              height={200}
-              width={200}
-            />
+            <Sprite pokemon={pokemon} height={200} width={200} />
             <Typography
               variant="h4"
               textTransform={"capitalize"}
               textAlign="center"
             >
-              {pokemon.species.name}
+              {pokemon!.species.name}
             </Typography>
           </Grid>
         )}
