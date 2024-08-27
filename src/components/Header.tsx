@@ -14,6 +14,8 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { useNavigate } from "react-router-dom";
 import Drawer from "./Drawer";
 import { useShinyContext } from "../models/ShinyContext";
+import { useRetroContext } from "../models/RetroContext";
+import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 
 interface HeaderProps {
   mode: "light" | "dark";
@@ -23,6 +25,7 @@ interface HeaderProps {
 function Header({ mode, setMode, theme }: HeaderProps) {
   const navigate = useNavigate();
   const shinyContext = useShinyContext();
+  const retroContext = useRetroContext();
 
   return (
     <AppBar position="static" color={"secondary"}>
@@ -64,7 +67,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
           sx={{
             ml: 1,
           }}
-          onClick={() => 
+          onClick={() =>
             shinyContext.setShinyDisplayed(!shinyContext.shinyDisplayed)
           }
         >
@@ -73,6 +76,23 @@ function Header({ mode, setMode, theme }: HeaderProps) {
               color:
                 theme.palette.conditional[
                 shinyContext?.shinyDisplayed ? "true" : "false"
+                ],
+            }}
+          />
+        </IconButton>
+        <IconButton
+          sx={{
+            ml: 1,
+          }}
+          onClick={() =>
+            retroContext.setRetroDisplayed(!retroContext.retroDisplayed)
+          }
+        >
+          <VideogameAssetIcon
+            sx={{
+              color:
+                theme.palette.conditional[
+                retroContext?.retroDisplayed ? "true" : "false"
                 ],
             }}
           />
