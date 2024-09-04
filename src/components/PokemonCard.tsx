@@ -50,7 +50,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
         <CardContent sx={{ flex: "1 0 auto" }}>
           <Typography
             component="div"
-            variant="h4"
+            variant="h2"
             textTransform={"capitalize"}
             sx={{ color: "text.primary" }}
           >

@@ -47,7 +47,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
             src="/assets/others/pokedex.svg"
             height={"40px"}
           />
-          <Typography component="div" variant="h4">
+          <Typography component="div" variant="h1">
             PokéDex
           </Typography>
         </Grid>

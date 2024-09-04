@@ -117,7 +117,7 @@ function GuessItsTypePage() {
         direction={"column"}
       >
         <Grid item>
-          <Typography variant="h4" textAlign={"center"}>
+          <Typography variant="h2" textAlign={"center"}>
             Guess Its Type
             <Tooltip
               title={
@@ -142,7 +142,7 @@ function GuessItsTypePage() {
           )}
           {pokemon && (
             <Typography
-              variant="h4"
+              variant="h2"
               textTransform={"capitalize"}
               textAlign="center"
             >
