@@ -10,7 +10,7 @@ interface TypeIconProps {
 
 // TODO : Gérer le border radius sur le ripple effect + désactiver l'effet sur les cards
 function TypeIcon(props: TypeIconProps) {
-  const typeSvg = `public/assets/types_icons/${props.type}.svg`;
+  const typeSvg = `/assets/types_icons/${props.type}.svg`;
   return (
     <ButtonBase onClick={props.onClick}>
       <Grid
