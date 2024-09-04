@@ -4,6 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
 import Sprite from "./Sprite";
+import { useRetroContext } from "../models/RetroContext";
 
 interface PokemonArrowIconProps {
   pokemon: Pokemon;
@@ -17,6 +18,7 @@ function PokemonArrowIcon({
   isDisplayed,
 }: PokemonArrowIconProps) {
   const navigate = useNavigate();
+  const retroContext = useRetroContext();
 
   return (
     isDisplayed && (
@@ -32,7 +34,9 @@ function PokemonArrowIcon({
         {isBefore &&
           <>
             <ArrowBackIcon sx={{ color: "text.primary" }} />
-            <Sprite pokemon={pokemon} height={40} width={40} />
+            <Box height={96} width={96}>
+              <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
+            </Box>
           </>
         }
         <Typography sx={{ color: "text.primary" }} textTransform={"capitalize"}>
@@ -42,11 +46,13 @@ function PokemonArrowIcon({
         </Typography>
         {!isBefore &&
           <>
-            <Sprite pokemon={pokemon} height={40} width={40} />
+            <Box height={96} width={96}>
+              <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
+            </Box>
             <ArrowForwardIcon sx={{ color: "text.primary" }} />
           </>
         }
-      </Button>
+      </Button >
     )
   );
 }
