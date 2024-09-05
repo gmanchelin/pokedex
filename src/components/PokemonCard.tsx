@@ -17,7 +17,7 @@ interface PokemonCardProps {
 function PokemonCard({ pokemon }: PokemonCardProps) {
   const navigate = useNavigate();
   return (
-    <Grid item xs={12} sm={6} md={4} mb={2} lg={3} xl={3} mt={3}>
+    <Box mb={2} mt={2} ml={1} mr={1}>
       <Card
         sx={{
           flex: "1 1 0",
@@ -27,7 +27,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           marginRight: "16px",
           "&:hover": {
             cursor: "pointer",
-            transform: "scale(1.1)",
+            transform: "scale(1.05)",
             transition: "transform 0.3s ease, filter 0.3s ease",
             "& .hover-effect": {
               transform: "scale(1)",
@@ -69,7 +69,7 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           </Grid>
         </CardContent>
       </Card>
-    </Grid>
+    </Box>
   );
 }
 
