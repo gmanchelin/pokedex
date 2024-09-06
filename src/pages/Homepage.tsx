@@ -52,38 +52,39 @@ function Homepage() {
 
   return (
     <>
-      <FormControl fullWidth>
-        <InputLabel
-          id="demo-simple-select-label"
-          sx={{ color: (theme) => theme.palette.text.primary }}
-        >
-          Options
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={selectedGeneration}
-          label="Options"
-          onChange={handleChangeGeneration}
-        >
-          <MenuItem value="Kanto" defaultChecked>
-            Kanto
-          </MenuItem>
-          <MenuItem value="Johto">Johto</MenuItem>
-          <MenuItem value="Hoenn">Hoenn</MenuItem>
-          <MenuItem value="Sinnoh">Sinnoh</MenuItem>
-          <MenuItem value="Unova">Unova</MenuItem>
-          <MenuItem value="Kalos">Kalos</MenuItem>
-          <MenuItem value="Alola">Alola</MenuItem>
-          <MenuItem value="Galar">Galar</MenuItem>
-          <MenuItem value="Paldea">Paldea</MenuItem>
-        </Select>
-      </FormControl>
-      <Grid container spacing={2}>
-        {pokemonArray.map((pokemon) => (
-          <PokemonCard pokemon={pokemon} key={pokemon.id} />
-        ))}
+      <Grid container justifyContent={"center"} >
+        <FormControl>
+          <InputLabel
+            id="demo-simple-select-label"
+            sx={{ color: (theme) => theme.palette.text.primary }}
+          >
+            Options
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={selectedGeneration}
+            label="Options"
+            onChange={handleChangeGeneration}
+          >
+            <MenuItem value="Kanto" defaultChecked>
+              Kanto
+            </MenuItem>
+            <MenuItem value="Johto">Johto</MenuItem>
+            <MenuItem value="Hoenn">Hoenn</MenuItem>
+            <MenuItem value="Sinnoh">Sinnoh</MenuItem>
+            <MenuItem value="Unova">Unova</MenuItem>
+            <MenuItem value="Kalos">Kalos</MenuItem>
+            <MenuItem value="Alola">Alola</MenuItem>
+            <MenuItem value="Galar">Galar</MenuItem>
+            <MenuItem value="Paldea">Paldea</MenuItem>
+            <MenuItem value="All">All</MenuItem>
+          </Select>
+        </FormControl>
       </Grid>
+      {pokemonArray.map((pokemon) => (
+        <PokemonCard pokemon={pokemon} key={pokemon.id} />
+      ))}
     </>
   );
 }
