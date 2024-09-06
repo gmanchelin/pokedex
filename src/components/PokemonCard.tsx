@@ -25,10 +25,12 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           height: "100%",
           marginLeft: "32px",
           marginRight: "16px",
+          transform: "scale(1)",
+          filter: "blur(0)",
+          transition: "transform 0.3s ease, filter 0.3s ease",
           "&:hover": {
             cursor: "pointer",
             transform: "scale(1.05)",
-            transition: "transform 0.3s ease, filter 0.3s ease",
             "& .hover-effect": {
               transform: "scale(1)",
               filter: "blur(4px)",
