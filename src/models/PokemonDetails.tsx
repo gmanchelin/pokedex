@@ -16,4 +16,11 @@ export interface PokemonDetails {
     is_hidden: boolean;
     slot: number;
   }[];
+  stats: {
+    base_stat: number;
+    effort: number;
+    stat: {
+      name: string;
+    };
+  }[];
 }
