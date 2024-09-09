@@ -11,29 +11,28 @@ import MenuIcon from "@mui/icons-material/Menu";
 import QuizIcon from "@mui/icons-material/Quiz";
 import { useNavigate } from "react-router-dom";
 
-export default function TemporaryDrawer() {
+export default function LeftDrawer() {
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
   const listItemsArray = [
-    ["Guess Its Type", "/guess-its-type"],
-    ["Who's That Pokémon?", "/whos-that-pokemon"],
+    [<QuizIcon />, "Guess Its Type", "/guess-its-type"],
+    [<MenuIcon />, "Who's That Pokémon?", "/whos-that-pokemon"],
   ];
-
-  const navigate = useNavigate();
-
+  
   const drawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {listItemsArray.map(([text, path], index) => {
+        {listItemsArray.map(([icon, text, path], index) => {
           return (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => navigate(path)}>
+            <ListItem key={`option-${index}`} disablePadding>
+              <ListItemButton onClick={() => navigate(path.valueOf())}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <QuizIcon /> : <QuizIcon />}
+                  {icon}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
@@ -45,13 +44,13 @@ export default function TemporaryDrawer() {
   );
 
   return (
-    <div>
+    <Box component={"div"}>
       <Button onClick={toggleDrawer(true)}>
         <MenuIcon sx={{ color: "text.secondary" }} />
       </Button>
       <Drawer open={open} onClose={toggleDrawer(false)}>
         {drawerList}
       </Drawer>
-    </div>
+    </Box>
   );
 }
