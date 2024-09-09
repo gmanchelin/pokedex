@@ -1,4 +1,4 @@
-import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
 import { useState, useEffect, SetStateAction } from "react";
 import PokemonCard from "../components/PokemonCard";
 import { Pokemon } from "../models/Pokemon";
@@ -7,6 +7,7 @@ import { generations } from "../models/Generations";
 function Homepage() {
   const [pokemonArray, setPokemonArray] = useState<Pokemon[]>([]);
   const [selectedGeneration, setSelectedGeneration] = useState("Kanto");
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleChangeGeneration = (event: {
     target: { value: SetStateAction<string> };
@@ -14,40 +15,42 @@ function Homepage() {
     setSelectedGeneration(event.target.value);
   };
 
-  useEffect(() => {
-    Homepage;
-    const getPokemon = async () => {
-      try {
-        const genToFetch = generations.find(
-          (generation) => generation.name === selectedGeneration
-        );
-        if (!genToFetch) {
-          throw new Error("Generation not found");
-        }
-        const { start, end } = genToFetch;
-        const limit = end - start + 1;
-        const offset = start - 1;
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
-        );
-        const data = await res.json();
-        const pokemonList = data.results;
-
-        const pokemonPromises = pokemonList.map((pokemon: { name: unknown }) =>
-          fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`).then(
-            (res) => res.json()
-          )
-        );
-
-        const pokemonData = await Promise.all(pokemonPromises);
-
-        setPokemonArray(pokemonData);
-      } catch (error) {
-        console.error("Error fetching Pokémon data:", error);
+  const getPokemon = async () => {
+    try {
+      const genToFetch = generations.find(
+        (generation) => generation.name === selectedGeneration
+      );
+      if (!genToFetch) {
+        throw new Error("Generation not found");
       }
-    };
+      const { start, end } = genToFetch;
+      const limit = end - start + 1;
+      const offset = start - 1;
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
+      );
+      const data = await res.json();
+      const pokemonList = data.results;
 
-    getPokemon();
+      const pokemonPromises = pokemonList.map((pokemon: { name: unknown }) =>
+        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`).then(
+          (res) => res.json()
+        )
+      );
+
+      const pokemonData = await Promise.all(pokemonPromises);
+
+      setPokemonArray(pokemonData);
+    } catch (error) {
+      console.error("Error fetching Pokémon data:", error);
+    }
+  };
+
+  useEffect(() => {
+    setIsLoading(true);
+    getPokemon().then(() => {
+      setIsLoading(false);
+    });
   }, [selectedGeneration]);
 
   return (
@@ -82,7 +85,11 @@ function Homepage() {
           </Select>
         </FormControl>
       </Grid>
-      {pokemonArray.map((pokemon) => (
+      {isLoading &&
+        <Box mt={10} sx={{ display: "flex", justifyContent: "center", alignItems: "center", direction: "column" }}>
+          <CircularProgress color="secondary"/>
+        </Box>}
+      {!isLoading && pokemonArray.map((pokemon) => (
         <PokemonCard pokemon={pokemon} key={pokemon.id} />
       ))}
     </>
