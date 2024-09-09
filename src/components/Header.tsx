@@ -19,9 +19,9 @@ function Header({ mode, setMode, theme }: HeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <AppBar position="static" color={"secondary"}>
-      <Toolbar sx={{ flexWrap: 'nowrap' }}>
-        <Grid container alignItems={"center"} justifyContent={"space-between"} wrap="nowrap">
+    <AppBar position="sticky" color={"secondary"}>
+      <Toolbar>
+        <Grid container alignItems={"center"} justifyContent={"space-between"}>
           <LeftDrawer />
           <Grid item
             sx={{
@@ -38,6 +38,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
               component="img"
               src="/assets/others/pokedex.svg"
               height={"40px"}
+              alt={"pokedex"}
             />
             <Typography component="div" variant="h1" sx={{
               display: { xs: "none", sm: "block" }, // Masquer sur mobile
