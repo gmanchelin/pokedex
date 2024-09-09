@@ -1,5 +1,14 @@
 import { PaletteMode } from "@mui/material";
 
+declare module "@mui/material/styles" {
+  interface Palette {
+    conditional: {
+      true: string;
+      false: string;
+    };
+  }
+}
+
 export const getDesignTokens = (mode: PaletteMode) => ({
   palette: {
     mode,
@@ -35,13 +44,13 @@ export const getDesignTokens = (mode: PaletteMode) => ({
   },
   typography: {
     h1: {
-      fontSize: "3rem",
+      fontSize: "2.3rem",
     },
     h2: {
-      fontSize: "2.5rem",
+      fontSize: "1.8rem",
     },
     h3: {
-      fontSize: "2rem",
-    }
-  }
+      fontSize: "1.5rem",
+    },
+  },
 });
