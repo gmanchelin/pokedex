@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { Pokemon } from "../models/Pokemon";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -31,27 +31,24 @@ function PokemonArrowIcon({
           });
         }}
       >
-        {isBefore &&
-          <>
-            <ArrowBackIcon sx={{ color: "text.primary" }} />
-            <Box height={96} width={96}>
-              <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
-            </Box>
-          </>
-        }
-        <Typography sx={{ color: "text.primary" }} textTransform={"capitalize"}>
-          #{pokemon.id}
-          {" - "}
-          {pokemon.species.name}
-        </Typography>
-        {!isBefore &&
-          <>
-            <Box height={96} width={96}>
-              <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
-            </Box>
-            <ArrowForwardIcon sx={{ color: "text.primary" }} />
-          </>
-        }
+        <Grid container flexDirection={"row"} alignItems={"center"}>
+          {isBefore &&
+            <>
+              <ArrowBackIcon sx={{ color: "text.primary" }} />
+              <Box height={96} width={96} alignContent={"center"}>
+                <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
+              </Box>
+            </>
+          }
+          {!isBefore &&
+            <>
+              <Box height={96} width={96}>
+                <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
+              </Box>
+              <ArrowForwardIcon sx={{ color: "text.primary" }} />
+            </>
+          }
+        </Grid>
       </Button >
     )
   );
