@@ -65,27 +65,30 @@ function GuessItsTypePage() {
   }
 
   function handleSubmit() {
-    const pokemonTypes = pokemon!.types.map((el) => el.type.name);
-    const guess =
-      selectedTypes.length === pokemonTypes.length &&
-      pokemonTypes.every((type) => selectedTypes.includes(type));
-    if (guess) {
-      setIsGoodAnswer(true);
-      setDisplayedMessage("DING DING! Good answer!");
-      setNumberOfGoodAnswers(numberOfGoodAnswers + 1);
-      setStreak(streak + 1);
-    } else {
-      setIsGoodAnswer(false);
-      setDisplayedMessage(
-        `BZZZT! Wrong answer! ${pokemon?.species.name.toUpperCase()} ${pokemonTypes.length == 1 ? "type is" : "types are"
-        } ${pokemonTypes.join(", ").toUpperCase()}`
-      );
-      setStreak(0);
-    }
-    setOpenSnackbar(true);
-    setSelectedTypes([]);
-    setId(randomNumber());
-    setNumberOfTries(numberOfTries + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(() => {
+      const pokemonTypes = pokemon!.types.map((el) => el.type.name);
+      const guess =
+        selectedTypes.length === pokemonTypes.length &&
+        pokemonTypes.every((type) => selectedTypes.includes(type));
+      if (guess) {
+        setIsGoodAnswer(true);
+        setDisplayedMessage("DING DING! Good answer!");
+        setNumberOfGoodAnswers(numberOfGoodAnswers + 1);
+        setStreak(streak + 1);
+      } else {
+        setIsGoodAnswer(false);
+        setDisplayedMessage(
+          `BZZZT! Wrong answer! ${pokemon?.species.name.toUpperCase()} ${pokemonTypes.length == 1 ? "type is" : "types are"
+          } ${pokemonTypes.join(", ").toUpperCase()}`
+        );
+        setStreak(0);
+      }
+      setOpenSnackbar(true);
+      setSelectedTypes([]);
+      setId(randomNumber());
+      setNumberOfTries(numberOfTries + 1);
+    }, 10);
   }
 
   const handleClose = (
@@ -109,34 +112,37 @@ function GuessItsTypePage() {
   };
   return (
     <>
+      <Typography variant="h2" textAlign={"center"}>
+        Guess Its Type
+        <Tooltip
+          title={
+            <>
+              A random Pokémon appears! You have to guess its type(s) by selecting up to 2 of them. <br />
+              You're helped with the number of types of the Pokémon at first, but things get more spicy as you progress with your streak of good guesses:<br />
+              - Streak of 10 : the number of types is no more displayed<br />
+              - Streak of 30 : the Pokémon's sprite is changed with a gray silhouette <br />
+              - Streak of 50 : only the name of the Pokemon is displayed
+            </>
+          }
+        >
+          <IconButton sx={{ "&:hover": { cursor: "pointer" } }}>
+            <InfoIcon />
+          </IconButton>
+        </Tooltip>
+      </Typography>
+      <Grid container justifyContent={"space-evenly"} direction={"column"}>
+        <Typography textAlign={"center"} >Attempts : {numberOfTries}</Typography>
+        <Typography textAlign={"center"} >Good answers : {numberOfGoodAnswers}</Typography>
+        <Typography textAlign={"center"} >Streak : {streak}</Typography>
+      </Grid>
       <Grid
         container
         spacing={2}
-        justifyContent="center"
+        justifyContent="space-evenly"
         alignContent={"center"}
-        direction={"column"}
+        direction={"row"}
       >
-        <Grid item>
-          <Typography variant="h2" textAlign={"center"}>
-            Guess Its Type
-            <Tooltip
-              title={
-                <>
-                  A random Pokémon appears! You have to guess its type(s) by selecting up to 2 of them. <br />
-                  You're helped with the number of types of the Pokémon at first, but things get more spicy as you progress with your streak of good guesses:<br />
-                  - Streak of 10 : the number of types is no more displayed<br />
-                  - Streak of 30 : the Pokémon's sprite is changed with a gray silhouette <br />
-                  - Streak of 50 : only the name of the Pokemon is displayed
-                </>
-              }
-            >
-              <IconButton sx={{ "&:hover": { cursor: "pointer" } }}>
-                <InfoIcon />
-              </IconButton>
-            </Tooltip>
-          </Typography>
-        </Grid>
-        <Grid item>
+        <Grid item sx={{ textAlign: "center" }}>
           {pokemon && streak < 50 && (
             <Sprite pokemon={pokemon} height={200} width={200} isGray={streak > 30} />
           )}
@@ -144,7 +150,6 @@ function GuessItsTypePage() {
             <Typography
               variant="h2"
               textTransform={"capitalize"}
-              textAlign="center"
             >
               {pokemon!.species.name}
             </Typography>
@@ -165,7 +170,6 @@ function GuessItsTypePage() {
               />
             </Grid>
           ))}
-
           <Grid item>
             <Button
               disabled={selectedTypes.length === 0}
@@ -174,21 +178,9 @@ function GuessItsTypePage() {
               Guess
             </Button>
           </Grid>
-          <Grid item>
-            <Box
-              component={"p"}
-              textAlign={"center"}
-              justifyContent={"space-around"}
-              display={"flex"}
-            >
-              <Typography>Number of tries : {numberOfTries}</Typography>
-              <Typography>Good answers : {numberOfGoodAnswers}</Typography>
-              <Typography>Streak : {streak}</Typography>
-            </Box>
-          </Grid>
           <Snackbar
             open={openSnackbar}
-            autoHideDuration={6000}
+            autoHideDuration={2000}
             onClose={handleClose}
           >
             <Alert
