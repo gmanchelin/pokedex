@@ -1,4 +1,4 @@
-import { PaletteMode } from "@mui/material";
+import { PaletteMode, Theme } from "@mui/material";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -51,6 +51,20 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     },
     h3: {
       fontSize: "1.5rem",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: ({ theme }: { theme: Theme }) => ({
+          backgroundColor: theme.palette.secondary.main,
+          color: theme.palette.text.secondary,
+          '&.Mui-disabled': {
+            backgroundColor: theme.palette.action.disabledBackground,
+            color: theme.palette.text.disabled,
+          },
+        }),
+      },
     },
   },
 });
