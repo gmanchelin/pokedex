@@ -1,7 +1,7 @@
 import React from "react";
 import { Pokemon } from "../models/Pokemon";
-import { useRetroContext } from "../models/RetroContext";
-import { useShinyContext } from "../models/ShinyContext";
+import { useRetroContext } from "../contexts/RetroContext";
+import { useShinyContext } from "../contexts/ShinyContext";
 import { Box } from "@mui/material";
 
 interface SpriteProps {

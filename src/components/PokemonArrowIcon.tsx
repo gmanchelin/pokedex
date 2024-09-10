@@ -4,7 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useNavigate } from "react-router-dom";
 import Sprite from "./Sprite";
-import { useRetroContext } from "../models/RetroContext";
+import { useRetroContext } from "../contexts/RetroContext";
 
 interface PokemonArrowIconProps {
   pokemon: Pokemon;

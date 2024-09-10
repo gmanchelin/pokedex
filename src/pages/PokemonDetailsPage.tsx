@@ -12,7 +12,7 @@ import {
 } from "../models/SharedFunctions";
 import Sprite from "../components/Sprite";
 import StatGauge from "../components/StatGauge";
-import { useRetroContext } from "../models/RetroContext";
+import { useRetroContext } from "../contexts/RetroContext";
 import TypeIcon from "../components/TypeIcon";
 
 function PokemonDetailsPage() {

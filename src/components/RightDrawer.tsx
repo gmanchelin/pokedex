@@ -13,8 +13,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import { Theme } from "@mui/material";
-import { useShinyContext } from "../models/ShinyContext";
-import { useRetroContext } from "../models/RetroContext";
+import { useShinyContext } from "../contexts/ShinyContext";
+import { useRetroContext } from "../contexts/RetroContext";
 
 interface RightDrawerProps {
     mode: "light" | "dark";
