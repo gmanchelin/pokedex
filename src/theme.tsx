@@ -66,6 +66,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
             backgroundColor: theme.palette.action.disabledBackground,
             color: theme.palette.text.disabled,
           },
+          '&.no-theme-style': {
+          backgroundColor: 'inherit',
+        },
         }),
       },
     },
@@ -74,9 +77,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
         root: (props: { theme: any; }) => {
           const { theme } = props;
           return {
-            color: mode === "light" ? theme.palette.conditional.false : theme.palette.conditional.true, // Exemple avec la couleur principale
+            color: mode === "light" ? theme.palette.conditional.false : theme.palette.conditional.true,
             '&.Mui-checked': {
-              color: theme.palette.secondary.main, // Couleur lorsque le bouton est coché
+              color: theme.palette.secondary.main
             },
           };
         },
