@@ -52,6 +52,9 @@ export const getDesignTokens = (mode: PaletteMode) => ({
     h3: {
       fontSize: "1.5rem",
     },
+    h4: {
+      fontSize: "1.3rem",
+    },
   },
   components: {
     MuiButton: {
