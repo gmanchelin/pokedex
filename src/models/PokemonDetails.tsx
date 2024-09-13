@@ -2,6 +2,17 @@ export interface PokemonDetails {
   id: number;
   species: {
     name: string;
+    url: string;
+  };
+  sprites: {
+    front_default: string;
+    front_shiny: string;
+    other: {
+      home: {
+        front_default: string;
+        front_shiny: string;
+      };
+    };
   };
   types: {
     type: {
@@ -23,4 +34,15 @@ export interface PokemonDetails {
       name: string;
     };
   }[];
+  moves: {
+    move: {
+      name: string;
+    },
+    version_group_details: {
+      level_learned_at: number;
+      version_group: {
+        name: string;
+      };
+    }[]
+  }[];  
 }
