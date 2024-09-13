@@ -8,11 +8,10 @@ interface TypeIconProps {
   isSelected?: boolean;
 }
 
-// TODO : Gérer le border radius sur le ripple effect + désactiver l'effet sur les cards
 function TypeIcon(props: TypeIconProps) {
   const typeSvg = `/assets/types_icons/${props.type}.svg`;
   return (
-    <ButtonBase onClick={props.onClick}>
+    <ButtonBase onClick={props.onClick} disableRipple>
       <Grid
         item
         display={"flex"}
@@ -39,9 +38,9 @@ function TypeIcon(props: TypeIconProps) {
         ></Box>
         <Box
           sx={{
-            flex: 1, // Take up remaining space
+            flex: 1,
             display: "flex",
-            justifyContent: "center", // Center horizontally within this box
+            justifyContent: "center",
           }}
         >
           <Typography
