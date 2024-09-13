@@ -3,9 +3,10 @@ import { Pokemon } from "../models/Pokemon";
 import { useRetroContext } from "../contexts/RetroContext";
 import { useShinyContext } from "../contexts/ShinyContext";
 import { Box } from "@mui/material";
+import { PokemonDetails } from "../models/PokemonDetails";
 
 interface SpriteProps {
-  pokemon: Pokemon;
+  pokemon: Pokemon | PokemonDetails;
   height?: number;
   width?: number;
   isGray?: boolean;
