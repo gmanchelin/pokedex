@@ -66,5 +66,18 @@ export const getDesignTokens = (mode: PaletteMode) => ({
         }),
       },
     },
+    MuiRadio: {
+      styleOverrides: {
+        root: (props: { theme: any; }) => {
+          const { theme } = props;
+          return {
+            color: mode === "light" ? theme.palette.conditional.false : theme.palette.conditional.true, // Exemple avec la couleur principale
+            '&.Mui-checked': {
+              color: theme.palette.secondary.main, // Couleur lorsque le bouton est coché
+            },
+          };
+        },
+      },
+    }
   },
 });
