@@ -77,12 +77,12 @@ function PokemonDetailsPage() {
       <Grid container spacing={2} alignItems={"center"} justifyContent="center" direction={"column"}>
         <Grid item>
           <Typography textTransform={"capitalize"} variant="h2">
-            #{pokemon?.id} - {pokemonSelected?.species.name}
+            #{pokemon?.id} - {pokemonSelected && pokemonSelected?.species.name}
           </Typography>
         </Grid>
         <Grid item>
           <Box height={192} width={192} justifyContent={"center"} display={"flex"} alignItems={"center"}>
-            <Sprite pokemon={pokemonSelected!} height={retroContext.retroDisplayed ? 96 : 192} width={retroContext.retroDisplayed ? 96 : 192} />
+            {pokemonSelected && <Sprite pokemon={pokemonSelected!} height={retroContext.retroDisplayed ? 96 : 192} width={retroContext.retroDisplayed ? 96 : 192} />}
           </Box>
         </Grid>
         {pokemonSpecies && pokemonSpecies!.varieties.length > 1 &&
@@ -101,9 +101,9 @@ function PokemonDetailsPage() {
         }
         <Grid container spacing={2} alignItems={"center"} justifyContent="center">
           <Grid item>
-            <TypeIcon type={pokemonSelected!.types[0].type.name} />
+            {pokemonSelected && <TypeIcon type={pokemonSelected!.types[0].type.name} />}
           </Grid>
-          {pokemonSelected!.types[1] && (
+          {pokemonSelected && pokemonSelected!.types[1] && (
             <Grid item>
               <TypeIcon type={pokemonSelected!.types[1].type.name} />
             </Grid>
@@ -132,6 +132,9 @@ function PokemonDetailsPage() {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
+          <Typography variant="h3">Moves</Typography>
+
+          <Typography variant="h4">Learnt by level up</Typography>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -142,17 +145,91 @@ function PokemonDetailsPage() {
               </TableHead>
               <TableBody>
                 {pokemonSelected?.moves
-                  .filter((move) => move.version_group_details[0].level_learned_at > 0) // Filtrer les moves avec un niveau > 0
-                  .sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at) // Trier par niveau
+                  .filter((move) => move.version_group_details[move.version_group_details.length - 1].level_learned_at > 0) 
+                  .sort((a, b) => a.version_group_details[a.version_group_details.length - 1].level_learned_at - b.version_group_details[b.version_group_details.length - 1].level_learned_at)
                   .map((move) => (
                     <TableRow key={move.move.name}>
-                      <TableCell>{move.version_group_details[0].level_learned_at}</TableCell>
+                      <TableCell>{move.version_group_details[move.version_group_details.length - 1].level_learned_at}</TableCell>
                       <TableCell>{CapitalizeAndRemoveHyphen(move.move.name)}</TableCell>
                     </TableRow>
                   ))}
               </TableBody>
             </Table>
           </TableContainer>
+          {pokemonSelected?.moves.some((move) => move.version_group_details[move.version_group_details.length - 1].move_learn_method.name === "machine") && (
+            <>
+              <Typography variant="h4">Learnt by TM</Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>TM</TableCell>
+                      <TableCell>Move</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {pokemonSelected?.moves
+                      .filter((move) => move.version_group_details[move.version_group_details.length - 1].move_learn_method.name === "machine")
+                      .sort((a, b) => a.version_group_details[a.version_group_details.length - 1].level_learned_at - b.version_group_details[b.version_group_details.length - 1].level_learned_at)
+                      .map((move) => (
+                        <TableRow key={move.move.name}>
+                          <TableCell>TM </TableCell>
+                          <TableCell>{CapitalizeAndRemoveHyphen(move.move.name)}</TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
+          )}
+          {pokemonSelected?.moves.some((move) => move.version_group_details[move.version_group_details.length - 1].move_learn_method.name === "tutor") && (
+            <>
+              <Typography variant="h4">Learnt by Move Tutor</Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Move</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {pokemonSelected.moves
+                      .filter((move) => move.version_group_details[move.version_group_details.length - 1].move_learn_method.name === "tutor")
+                      .sort((a, b) => a.version_group_details[a.version_group_details.length - 1].level_learned_at - b.version_group_details[b.version_group_details.length - 1].level_learned_at)
+                      .map((move) => (
+                        <TableRow key={move.move.name}>
+                          <TableCell>{CapitalizeAndRemoveHyphen(move.move.name)}</TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
+          )}
+          {pokemonSelected?.moves.some((move) => move.version_group_details[move.version_group_details.length - 1].move_learn_method.name === "form-change") && (
+            <>
+              <Typography variant="h4">Special Moves</Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Move</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {pokemonSelected.moves
+                      .filter((move) => move.version_group_details[move.version_group_details.length - 1].move_learn_method.name === "form-change")
+                      .sort((a, b) => a.version_group_details[a.version_group_details.length - 1].level_learned_at - b.version_group_details[b.version_group_details.length - 1].level_learned_at)
+                      .map((move) => (
+                        <TableRow key={move.move.name}>
+                          <TableCell>{CapitalizeAndRemoveHyphen(move.move.name)}</TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
+          )}
         </Grid>
       </Grid>
     </>
