@@ -21,7 +21,7 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Header mode={mode} theme={theme} setMode={setMode} />
-        <Box height="24px" />
+        <Box height="12px" />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="page/:id" element={<PokemonDetailsPage />} />

@@ -23,8 +23,6 @@ function PokemonCard({ pokemon }: PokemonCardProps) {
           flex: "1 1 0",
           display: "flex",
           height: "100%",
-          marginLeft: "64px",
-          marginRight: "64px",
           transform: "scale(1)",
           filter: "blur(0)",
           transition: "transform 0.3s ease, filter 0.3s ease",
