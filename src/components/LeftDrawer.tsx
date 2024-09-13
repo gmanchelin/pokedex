@@ -45,7 +45,7 @@ export default function LeftDrawer() {
 
   return (
     <Box component={"div"}>
-      <Button onClick={toggleDrawer(true)}>
+      <Button className="no-theme-style" onClick={toggleDrawer(true)}>
         <MenuIcon sx={{ color: "text.secondary" }} />
       </Button>
       <Drawer open={open} onClose={toggleDrawer(false)}>

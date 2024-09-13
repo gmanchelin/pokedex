@@ -41,7 +41,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
               alt={"pokedex"}
             />
             <Typography component="div" variant="h1" sx={{
-              display: { xs: "none", sm: "block" }, // Masquer sur mobile
+              display: { xs: "none", sm: "block" },
             }}>
               PokéDex
             </Typography>

@@ -84,7 +84,7 @@ export default function RightDrawer(props: RightDrawerProps) {
 
     return (
         <Box component={"div"}>
-            <Button onClick={toggleDrawer(true)}>
+            <Button className="no-theme-style" onClick={toggleDrawer(true)}>
                 <SettingsIcon sx={{ color: "text.secondary" }} />
             </Button>
             <Drawer open={open} onClose={toggleDrawer(false)} anchor="right">

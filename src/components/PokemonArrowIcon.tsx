@@ -23,6 +23,8 @@ function PokemonArrowIcon({
   return (
     isDisplayed && (
       <Button
+      className="no-theme-style"
+      disableRipple
         onClick={() => {
           navigate(`/page/${pokemon.id}`, {
             state: {
