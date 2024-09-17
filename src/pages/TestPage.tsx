@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
-import { getEmployees } from "../models/SharedFunctions";
-import { Employee } from "../models/Employee";
+import { Trainer } from "../models/Trainer";
+import { getTrainers } from "../models/SharedFunctions";
+import { Box } from "@mui/material";
 
 function TestPage() {
 
-  const [employees, setEmployees] = useState<Employee[]>([]); 
+  const [trainers, setTrainers] = useState<Trainer[]>([]);
 
   async function fetchData() {
-    setEmployees(await getEmployees());
+    setTrainers(await getTrainers());
   }
   useEffect(() => {
     fetchData();
-  }, [employees]);
+  }, [trainers]);
   return (
-    <div>
-      {employees!.map((employee) => (
-        <div key={employee.username}>{employee.username}</div>
+    <>
+      {trainers!.map((trainer) => (
+        <Box
+          key={trainer.name}
+          component="img"
+          src={trainer.img}
+          height={"128px"}
+          alt={`trainer ${trainer.name} icon`}
+        />
       ))}
-    </div>
+    </>
   );
 }
 

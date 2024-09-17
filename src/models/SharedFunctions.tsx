@@ -1,4 +1,4 @@
-import { Employee } from "./Employee";
+import { Trainer } from "./Trainer";
 import { Pokemon } from "./Pokemon";
 import { PokemonDetails } from "./PokemonDetails";
 import { PokemonSpecies } from "./PokemonSpecies";
@@ -55,8 +55,8 @@ export async function getPokemonDetails(
   }
 }
 
-export async function getEmployees(): Promise<Employee[]> {
-  const res = await fetch("http://localhost:8080/api/employees").then( 
+export async function getTrainers(): Promise<Trainer[]> {
+  const res = await fetch("http://localhost:8080/api/trainers").then( 
     (res) => res.json()
   );
   return res;
