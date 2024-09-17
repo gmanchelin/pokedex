@@ -21,7 +21,7 @@ export default function LeftDrawer() {
 
   const listItemsArray = [
     [<QuizIcon />, "Guess Its Type", "/guess-its-type"],
-    [<MenuIcon />, "Who's That Pokémon?", "/whos-that-pokemon"],
+    [<MenuIcon />, "TEST", "/test"],
   ];
   
   const drawerList = (
