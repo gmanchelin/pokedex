@@ -18,22 +18,24 @@ const Sprite: React.FC<SpriteProps> = ({ pokemon, height, width, isGray }) => {
 
   let imgSrc = "";
   let imgAlt = "";
+  const url = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon"
 
-  // Sprite home non shiny
+  // Artwork officiel non shiny
   if (!retroContext.retroDisplayed && !shinyContext.shinyDisplayed ) {
-    imgSrc = pokemon.sprites.other.home.front_default;
-    imgAlt = `${pokemon!.species.name} home sprite`;
-    // Sprite home shiny
+    pokemon.id
+    imgSrc = `${url}/other/official-artwork/${pokemon!.id}.png`
+    imgAlt = `${pokemon!.species.name} official artwork`;
+    // Artwork officiel shiny
   } else if (!retroContext.retroDisplayed && shinyContext.shinyDisplayed) {
-    imgSrc = pokemon.sprites.other.home.front_shiny;
-    imgAlt = `${pokemon!.species.name} shiny home sprite`;
+    imgSrc = `${url}/other/official-artwork/shiny/${pokemon!.id}.png`
+    imgAlt = `${pokemon!.species.name} shiny official artwork`;
     // Sprite pixel non shiny
   } else if (retroContext.retroDisplayed && !shinyContext.shinyDisplayed) {
-    imgSrc = pokemon.sprites.front_default;
-    imgAlt = `${pokemon!.species.name}-retro sprite`;
+    imgSrc = `${url}/${pokemon!.id}.png`;
+    imgAlt = `${pokemon!.species.name} retro sprite`;
     // Sprite pixel shiny
   } else if (retroContext.retroDisplayed && shinyContext.shinyDisplayed) {
-    imgSrc = pokemon.sprites.front_shiny;
+    imgSrc = `${url}/shiny/${pokemon!.id}.png`;
     imgAlt = `${pokemon!.species.name} shiny retro sprite`;
   }
 
