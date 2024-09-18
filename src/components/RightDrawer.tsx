@@ -7,14 +7,16 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
-import { Theme } from "@mui/material";
+import { Divider, Theme } from "@mui/material";
 import { useShinyContext } from "../contexts/ShinyContext";
 import { useRetroContext } from "../contexts/RetroContext";
+import { useNavigate } from "react-router-dom";
 
 interface RightDrawerProps {
     mode: "light" | "dark";
@@ -25,6 +27,7 @@ export default function RightDrawer(props: RightDrawerProps) {
     const [open, setOpen] = React.useState(false);
     const shinyContext = useShinyContext();
     const retroContext = useRetroContext();
+    const navigate = useNavigate();
 
 
     const toggleDrawer = (newOpen: boolean) => () => {
@@ -66,6 +69,15 @@ export default function RightDrawer(props: RightDrawerProps) {
     const drawerList = (
         <Box sx={{ width: 250 }} role="presentation">
             <List>
+                <ListItem key={"login"} disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon onClick={() => navigate("login")}>
+                            <PersonIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Login"} />
+                    </ListItemButton>
+                </ListItem>
+                <Divider />
                 {listItemsArray.map(([icon, text, f], index) => (
                     <ListItem key={`option-${index}`} disablePadding>
                         <ListItemButton

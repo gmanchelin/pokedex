@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import { getDesignTokens } from "./theme";
 import GuessItsType from "./pages/GuessItsTypePage";
 import TestPage from "./pages/TestPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   const [mode, setMode] = useState<"light" | "dark">(localStorage.getItem("mode") === "light" ? "light" : "dark");
@@ -27,6 +28,7 @@ function App() {
           <Route path="page/:id" element={<PokemonDetailsPage />} />
           <Route path="guess-its-type" element={<GuessItsType />} />
           <Route path="test" element={<TestPage />} />
+          <Route path="login" element={<LoginPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
