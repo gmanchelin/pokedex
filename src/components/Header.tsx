@@ -40,7 +40,7 @@ function Header({ mode, setMode, theme }: HeaderProps) {
               height={"40px"}
               alt={"pokedex"}
             />
-            <Typography component="div" variant="h1" sx={{
+            <Typography variant="h1" sx={{
               display: { xs: "none", sm: "block" },
             }}>
               PokéDex
