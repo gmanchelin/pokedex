@@ -70,8 +70,8 @@ export default function RightDrawer(props: RightDrawerProps) {
         <Box sx={{ width: 250 }} role="presentation">
             <List>
                 <ListItem key={"login"} disablePadding>
-                    <ListItemButton>
-                        <ListItemIcon onClick={() => navigate("login")}>
+                    <ListItemButton onClick={() => navigate("login")}>
+                        <ListItemIcon>
                             <PersonIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Login"} />
@@ -80,12 +80,10 @@ export default function RightDrawer(props: RightDrawerProps) {
                 <Divider />
                 {listItemsArray.map(([icon, text, f], index) => (
                     <ListItem key={`option-${index}`} disablePadding>
-                        <ListItemButton
-                            onClick={() => {
-                                f();
-                            }}
-                        >
-                            <ListItemIcon>{icon}</ListItemIcon>
+                        <ListItemButton onClick={() => { f() }}>
+                            <ListItemIcon>
+                                {icon}
+                            </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
                     </ListItem>
