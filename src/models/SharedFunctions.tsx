@@ -56,7 +56,7 @@ export async function getPokemonDetails(
 }
 
 export async function getTrainers(): Promise<Trainer[]> {
-  const res = await fetch("http://localhost:8080/api/trainers").then( 
+  const res = await fetch("http://localhost:8080/api/trainers").then(
     (res) => res.json()
   );
   return res;
