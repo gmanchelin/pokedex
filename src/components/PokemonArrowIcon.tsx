@@ -22,9 +22,8 @@ function PokemonArrowIcon({
 
   return (
     isDisplayed && (
-      <Button
+      <Box
       className="no-theme-style"
-      disableRipple
         onClick={() => {
           navigate(`/page/${pokemon.id}`, {
             state: {
@@ -32,26 +31,27 @@ function PokemonArrowIcon({
             },
           });
         }}
+        sx={{ cursor: "pointer" }}
       >
         <Grid container flexDirection={"row"} alignItems={"center"}>
           {isBefore &&
             <>
               <ArrowBackIcon sx={{ color: "text.primary" }} />
-              <Box height={96} width={96} alignContent={"center"}>
+              <Box height={96} width={96} alignContent={"center"} ml={2}>
                 <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
               </Box>
             </>
           }
           {!isBefore &&
             <>
-              <Box height={96} width={96}>
+              <Box height={96} width={96} alignContent={"center"}>
                 <Sprite pokemon={pokemon} height={retroContext.retroDisplayed ? 96 : 64} width={retroContext.retroDisplayed ? 96 : 64} />
               </Box>
               <ArrowForwardIcon sx={{ color: "text.primary" }} />
             </>
           }
         </Grid>
-      </Button >
+      </Box>
     )
   );
 }
