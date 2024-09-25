@@ -13,6 +13,7 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Divider, Theme } from "@mui/material";
 import { useShinyContext } from "../contexts/ShinyContext";
 import { useRetroContext } from "../contexts/RetroContext";
@@ -28,11 +29,17 @@ export default function RightDrawer(props: RightDrawerProps) {
     const shinyContext = useShinyContext();
     const retroContext = useRetroContext();
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
 
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
     };
+
+    function logout() {
+        localStorage.removeItem("token");
+        navigate("/");
+    }
 
     type ListItemArrayType = [React.ReactElement, string, () => void];
 
@@ -69,6 +76,7 @@ export default function RightDrawer(props: RightDrawerProps) {
     const drawerList = (
         <Box sx={{ width: 250 }} role="presentation">
             <List>
+                {!token && 
                 <ListItem key={"login"} disablePadding>
                     <ListItemButton onClick={() => navigate("login")}>
                         <ListItemIcon>
@@ -76,7 +84,17 @@ export default function RightDrawer(props: RightDrawerProps) {
                         </ListItemIcon>
                         <ListItemText primary={"Login"} />
                     </ListItemButton>
-                </ListItem>
+                </ListItem>}
+                {token && 
+                <ListItem key={"logout"} disablePadding>
+                    <ListItemButton onClick={logout}>
+                        <ListItemIcon>
+                            <LogoutIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Logout"} />
+                    </ListItemButton>
+                </ListItem>}
+
                 <Divider />
                 {listItemsArray.map(([icon, text, f], index) => (
                     <ListItem key={`option-${index}`} disablePadding>

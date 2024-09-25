@@ -13,6 +13,7 @@ function LoginPage() {
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
     const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [severity, setSeverity] = useState<'error' | 'success'>('error');
 
     const form = useFormik({
         initialValues: {
@@ -30,20 +31,25 @@ function LoginPage() {
             })
                 .then(response => {
                     if (response.ok) {
-                        return response.json();
+                        return response.json().then(async data => {
+                            const token = data.token;
+                            localStorage.setItem('token', token);
+                            setSeverity('success');
+                            setOpenSnackbar(true);
+                            setMessage('User logged in successfully!');
+                            await new Promise(resolve => setTimeout(resolve, 1000))
+                            navigate('/');
+                        })
+                            .catch(error => {
+                                console.error('Error during login:', error);
+                            });;
                     } else {
-                        throw new Error('Wrong combination of User or E-mail and password.');
+                        setSeverity('error');
+                        setOpenSnackbar(true);
+                        setMessage('Wrong combination of User or E-mail and password.');
                     }
                 })
-                .then(data => {
-                    const token = data;
-                    localStorage.setItem('token', token);
-                    setMessage('User logged in successfully!');
-                    navigate('/');
-                })
-                .catch(error => {
-                    console.error('Error during login : ', error);
-                });
+                .then
         }
     });
 
@@ -56,14 +62,20 @@ function LoginPage() {
 
     return (
         <>
-            <Grid container
+            <Grid
+                container
                 alignItems="center"
                 justifyContent="center"
                 direction="column"
                 sx={{
                     height: '70vh'
-                }}>
-                <Typography variant='h1' sx={{ mb: 2 }}>Welcome Back!</Typography>
+                }}
+            >
+                <Typography
+                    variant='h1'
+                    sx={{ mb: 2 }}
+                >Welcome Back!
+                </Typography>
                 <Box
                     component="form"
                     onSubmit={form.handleSubmit}
@@ -74,16 +86,52 @@ function LoginPage() {
                     }}
                     noValidate
                     autoComplete="off"
+                    width={"300px"}
                 >
-                    <TextField id="username-or-email" name="usernameOrEmail" label="Username or E-Mail" variant="outlined" value={form.values.usernameOrEmail} onChange={form.handleChange} error={form.touched.usernameOrEmail && Boolean(form.errors.usernameOrEmail)} />
-                    <TextField id="password" name="password" label="Password" type="password" variant="outlined" value={form.values.password} onChange={form.handleChange} error={form.touched.password && Boolean(form.errors.password)} />
-                    <Button color="primary" variant="contained" type="submit">
+                    <TextField
+                        id="username-or-email"
+                        name="usernameOrEmail"
+                        label="Username or E-Mail"
+                        variant="outlined"
+                        value={form.values.usernameOrEmail}
+                        onChange={form.handleChange}
+                        error={form.touched.usernameOrEmail && Boolean(form.errors.usernameOrEmail)}
+                        helperText={form.touched.usernameOrEmail && form.errors.usernameOrEmail}
+                    />
+                    <TextField
+                        id="password"
+                        name="password"
+                        label="Password"
+                        type="password"
+                        variant="outlined"
+                        value={form.values.password}
+                        onChange={form.handleChange}
+                        error={form.touched.password && Boolean(form.errors.password)}
+                        helperText={form.touched.password && form.errors.password}
+                    />
+                    <Button
+                        color="primary"
+                        variant="contained"
+                        type="submit"
+                        sx={{
+                            width: "150px",
+                            alignSelf: "center"
+                        }}
+                    >
                         Login
                     </Button>
-                    <Grid item sx={{ display: "flex", direction: "row", justifyContent: "center" }}>
+                    <Grid
+                        item
+                        sx={{
+                            display: "flex",
+                            direction: "row",
+                            justifyContent: "center"
+                        }}>
                         <Typography>
                             Don't have an account ? {" "}
-                            <Link onClick={() => navigate("/signup")}>
+                            <Link
+                                onClick={() => navigate("/signup")}
+                            >
                                 Sign Up
                             </Link>
                         </Typography>
@@ -98,7 +146,7 @@ function LoginPage() {
             >
                 <Alert
                     onClose={handleClose}
-                    severity={"success"}
+                    severity={severity}
                     variant="filled"
                     sx={{ width: "100%" }}
                 >

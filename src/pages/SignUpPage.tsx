@@ -11,16 +11,16 @@ function SignUpPage() {
 
   const schema = object({
     username: string()
-    .matches(/^[a-zA-Z0-9]+$/, "Username can only contain letters and numbers.")
-    .required("Username is required."),
+      .matches(/^[a-zA-Z0-9]+$/, "Username can only contain letters and numbers.")
+      .required("Username is required."),
     email: string()
-    .email()
-    .matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 
-      "Invalid E-mail address.")
-    .required("Email is required."),
+      .email()
+      .matches(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        "Invalid E-mail address.")
+      .required("Email is required."),
     password: string()
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, "Password must contain at least one number, one uppercase, one lowercase letter, and be at least 8 characters long.")
-    .required("Password is required."),
+      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/, "Password must contain at least one number, one uppercase, one lowercase letter, and be at least 8 characters long.")
+      .required("Password is required."),
   });
   const form = useFormik({
     initialValues: {
@@ -63,15 +63,21 @@ function SignUpPage() {
 
   return (
     <>
-      <Grid container
+      <Grid
+        container
         alignItems="center"
         justifyContent="center"
         direction="column"
         sx={{
-          height: '70vh'
+          height: '70vh',
         }}
       >
-        <Typography variant='h1' sx={{ mb: 2 }}>Register</Typography>
+        <Typography
+          variant='h1'
+          sx={{ mb: 2 }}
+        >
+          Register
+        </Typography>
         <Box
           component="form"
           onSubmit={form.handleSubmit}
@@ -82,12 +88,43 @@ function SignUpPage() {
           }}
           noValidate
           autoComplete="off"
+          width={"300px"}
         >
-
-          <TextField id="username" label="Username" variant="outlined" value={form.values.username} onChange={form.handleChange} error={form.touched.username && Boolean(form.errors.username)} />
-          <TextField id="email" label="E-mail" variant="outlined" value={form.values.email} onChange={form.handleChange} error={form.touched.email && Boolean(form.errors.email)} />
-          <TextField id="password" label="Password" type="password" value={form.values.password} onChange={form.handleChange} error={form.touched.username && Boolean(form.errors.password)} />
-          <Button color="primary" variant="contained" type="submit">
+          <TextField
+            id="username"
+            label="Username"
+            variant="outlined"
+            value={form.values.username}
+            onChange={form.handleChange}
+            error={form.touched.username && Boolean(form.errors.username)}
+            helperText={form.touched.username && form.errors.username} />
+          <TextField
+            id="email"
+            label="E-mail"
+            variant="outlined"
+            value={form.values.email}
+            onChange={form.handleChange}
+            error={form.touched.email && Boolean(form.errors.email)}
+            helperText={form.touched.email && form.errors.email}
+          />
+          <TextField
+            id="password"
+            label="Password"
+            type="password"
+            value={form.values.password}
+            onChange={form.handleChange}
+            error={form.touched.username && Boolean(form.errors.password)}
+            helperText={form.touched.password && form.errors.password}
+          />
+          <Button
+            color="primary"
+            variant="contained"
+            type="submit"
+            sx={{
+              width: "150px",
+              alignSelf: "center"
+            }}
+          >
             Sign in
           </Button>
         </Box>
