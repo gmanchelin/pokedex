@@ -14,10 +14,12 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { Divider, Theme } from "@mui/material";
 import { useShinyContext } from "../contexts/ShinyContext";
 import { useRetroContext } from "../contexts/RetroContext";
 import { useNavigate } from "react-router-dom";
+import { parseJwt } from "../models/SharedFunctions";
 
 interface RightDrawerProps {
     mode: "light" | "dark";
@@ -30,7 +32,7 @@ export default function RightDrawer(props: RightDrawerProps) {
     const retroContext = useRetroContext();
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
-
+    const [username, setUsername] = React.useState<string>("");
 
     const toggleDrawer = (newOpen: boolean) => () => {
         setOpen(newOpen);
@@ -38,8 +40,15 @@ export default function RightDrawer(props: RightDrawerProps) {
 
     function logout() {
         localStorage.removeItem("token");
-        navigate("/");
+        navigate("login");
     }
+
+    React.useEffect(() => {
+        if (token != null) {
+            parseJwt(token!);
+            setUsername(parseJwt(token!).sub);
+        }
+    }, [token]);
 
     type ListItemArrayType = [React.ReactElement, string, () => void];
 
@@ -76,24 +85,33 @@ export default function RightDrawer(props: RightDrawerProps) {
     const drawerList = (
         <Box sx={{ width: 250 }} role="presentation">
             <List>
-                {!token && 
-                <ListItem key={"login"} disablePadding>
-                    <ListItemButton onClick={() => navigate("login")}>
-                        <ListItemIcon>
-                            <PersonIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Login"} />
-                    </ListItemButton>
-                </ListItem>}
-                {token && 
-                <ListItem key={"logout"} disablePadding>
-                    <ListItemButton onClick={logout}>
-                        <ListItemIcon>
-                            <LogoutIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={"Logout"} />
-                    </ListItemButton>
-                </ListItem>}
+                {!token &&
+                    <ListItem key={"login"} disablePadding>
+                        <ListItemButton onClick={() => navigate("login")}>
+                            <ListItemIcon>
+                                <PersonIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Login"} />
+                        </ListItemButton>
+                    </ListItem>}
+                {token &&
+                    <ListItemButton onClick={() => navigate("profile")}>
+                        <ListItem key={"profile"} disablePadding>
+                            <ListItemIcon>
+                                <ManageAccountsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={username} />
+                        </ListItem>
+                    </ListItemButton>}
+                {token &&
+                    <ListItem key={"logout"} disablePadding>
+                        <ListItemButton onClick={logout}>
+                            <ListItemIcon>
+                                <LogoutIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Logout"} />
+                        </ListItemButton>
+                    </ListItem>}
 
                 <Divider />
                 {listItemsArray.map(([icon, text, f], index) => (
